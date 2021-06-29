@@ -1,9 +1,5 @@
 "use strict"
 
-var canvas
-var gl
-var program
-
 var flag = false
 
 // planets numbers
@@ -26,24 +22,39 @@ var newplanet
 var commonSphere
 var Sun,Mercury,Venus,Earth,Mars,Jupiter,Saturn,Uranus,Neptune
 
-canvas = document.getElementById( "gl-canvas" )
+var keyboard = new THREEx.KeyboardState();
+var clock = new THREE.Clock();
 
-gl = canvas.getContext('webgl2')
-if (!gl) { alert( "WebGL 2.0 isn't available" ) }
-
-gl.viewport( 0, 0, canvas.width, canvas.height )
-gl.clearColor( 1.0, 1.0, 1.0, 1.0 )
+var delta
+var moveDistance
+var rotateAngle
 
 // set up the scene and camera
 const scene = new THREE.Scene()
-const camera = new THREE.PerspectiveCamera(75, canvas.width / canvas.height, 0.1, 20000000)
-camera.position.set(1980,0,20)
+const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 20000000)
+camera.position.set(2000,0,0)
 camera.up.set = (0,1,0)
-camera.lookAt(2000, 0, 0)
-camera.updateProjectionMatrix()
+camera.lookAt(0, 0, 0)
+scene.add(camera)
 
 // setup texture loader
 var loader = new THREE.TextureLoader()
+
+// adding the scene texture
+var Galaxy = BigBang(8500000)
+scene.add(Galaxy)
+
+const renderer = new THREE.WebGLRenderer({antialias: true})
+renderer.setSize( innerWidth, innerHeight )
+document.body.appendChild( renderer.domElement )
+
+// setup lights
+var light = new THREE.PointLight(0xffffff, 1)
+light.position.set(0, 0, 0)
+scene.add(light)
+scene.add(new THREE.AmbientLight(0x333333))
+
+/* --------------------------------------------------------------------------------------- */
 
 function BigBang(radius) {
 
@@ -57,20 +68,6 @@ function BigBang(radius) {
 
     return mesh
 }
-
-// adding the scene texture
-var Galaxy = BigBang(8500000)
-scene.add(Galaxy)
-
-const renderer = new THREE.WebGLRenderer()
-renderer.setSize( innerWidth, innerHeight )
-document.body.appendChild( renderer.domElement )
-
-// setup lights
-var light = new THREE.PointLight(0xffffff, 1)
-light.position.set(0, 0, 0)
-scene.add(light)
-scene.add(new THREE.AmbientLight(0x333333))
 
 // function used to calculate the orbit of each planet
 function loadPlanetsData() {
@@ -177,70 +174,69 @@ function  CreateSystem() {
                 Sun.position.set(0, 0, 0)
                 scene.add(Sun)
                 Planets.push(Sun)
-                break
+            break
                 
             case MERCURY:
                 Mercury = createPlanet(PlanetsData[i]["radius"], 0.005, 'textures/Mercury/Mercury.jpg','textures/Mercury/Mercury.jpg')
                 scene.add(Mercury)
                 Planets.push(Mercury)
-                break
+            break
                     
             case VENUS:
                 Venus = createPlanet(PlanetsData[i]["radius"], 0.005, 'textures/Venus/Venus.jpg','textures/Venus/Venus.jpg')
                 scene.add(Venus)
                 Planets.push(Venus)
-                break
+            break
                         
             case EARTH:
                 Earth = createPlanet(PlanetsData[i]["radius"], 0.05, 'textures/Earth/Earth.jpg','textures/Earth/Earth_Bump.jpg','textures/Earth/Earth_Specular.jpg')
                 createCloud(Earth)
                 // // createLights(Earth)
-                Earth.position.x = 2000
                 scene.add(Earth)
                 Planets.push(Earth)
-                break
+            break
+                
+            case MARS:
+                Mars = createPlanet(PlanetsData[i]["radius"], 0.05, 'textures/Mars/Mars.jpg','textures/Mars/Mars_Bump.jpg')
+                scene.add(Mars)
+                Planets.push(Mars)
+            break
+
+            case JUPITER:
+                Jupiter = createPlanet(PlanetsData[i]["radius"], 0.02, 'textures/Jupiter/jupiter2_4k.jpg','textures/Jupiter/jupiter2_4k.jpg')
+                scene.add(Jupiter)
+                Planets.push(Jupiter)
+            break
+
+            case SATURN:
+                Saturn = createPlanet(PlanetsData[i]["radius"], 0.05, 'textures/Saturn/saturnSurface.jpg','textures/Saturn/saturnSurface.jpg')
+                // innerRadius = (planets[i]["radius"] + 6.630) / planets[i]["radius"]
+                // outerRadius = (planets[i]["radius"] + saturnOuterRadius) / planets[i]["radius"]
+                // ring = createRing(innerRadius, outerRadius, ringSegments,'qrc:images/saturnringcolortrans.png')
+                // ring.receiveShadow = true
+                // ring.castShadow = true
+                // mesh.add(ring)
+                scene.add(Saturn)
+                Planets.push(Saturn)
+            break
+
+            case URANUS:
+                Uranus = createPlanet(PlanetsData[i]["radius"], 0.05, 'textures/Uranus/Uranus.jpg','textures/Uranus/Uranus.jpg');
+                // innerRadius = (planets[i]["radius"] + 2) / planets[i]["radius"]
+                // outerRadius = (planets[i]["radius"] + uranusOuterRadius) / planets[i]["radius"]
+                // ring = createRing(innerRadius, outerRadius, ringSegments,'qrc:images/uranusringcolortrans.png')
+                // ring.receiveShadow = true
+                // ring.castShadow = true
+                // mesh.add(ring)
+                scene.add(Uranus)
+                Planets.push(Uranus)
+            break
             
-            // case MARS:
-            //     Mars = createPlanet(planets[i]["radius"], 0.05, 'textures/Mars/Mars.jpg','textures/Mars/Mars_Bump.jpg')
-            //     scene.add(Mars)
-            //     Planets.push(Mars)
-            //     break
-
-            // case JUPITER:
-            //     Jupiter = createPlanet(planets[i]["radius"], 0.02, 'images/jupitermap.jpg','images/jupitermap.jpg')
-            //     scene.add(Jupiter)
-            //     Planets.push(Jupiter)
-            //     break
-
-            // case SATURN:
-            //     Saturn = createPlanet(planets[i]["radius"], 0.05, 'images/saturnmap.jpg','images/saturnmap.jpg')
-            //     // innerRadius = (planets[i]["radius"] + 6.630) / planets[i]["radius"]
-            //     // outerRadius = (planets[i]["radius"] + saturnOuterRadius) / planets[i]["radius"]
-            //     // ring = createRing(innerRadius, outerRadius, ringSegments,'qrc:images/saturnringcolortrans.png')
-            //     // ring.receiveShadow = true
-            //     // ring.castShadow = true
-            //     // mesh.add(ring)
-            //     scene.add(Saturn)
-            //     Planets.push(Saturn)
-            //     break
-
-            // case URANUS:
-            //     Uranus = createPlanet(planets[i]["radius"], 0.05, 'images/uranusmap.jpg','images/uranusmap.jpg');
-            //     // innerRadius = (planets[i]["radius"] + 2) / planets[i]["radius"]
-            //     // outerRadius = (planets[i]["radius"] + uranusOuterRadius) / planets[i]["radius"]
-            //     // ring = createRing(innerRadius, outerRadius, ringSegments,'qrc:images/uranusringcolortrans.png')
-            //     // ring.receiveShadow = true
-            //     // ring.castShadow = true
-            //     // mesh.add(ring)
-            //     scene.add(Uranus)
-            //     Planets.push(Uranus)
-            //     break
-            
-            // case NEPTUNE:
-            //     Neptune = createPlanet(planets[i]["radius"], 0.05, 'images/neptunemap.jpg','images/neptunemap.jpg')
-            //     scene.add(Neptune)
-            //     Planets.push(Neptune)
-            //     break
+            case NEPTUNE:
+                Neptune = createPlanet(PlanetsData[i]["radius"], 0.05, 'textures/Neptune/Neptune.jpg','textures/Neptune/Neptune.jpg')
+                scene.add(Neptune)
+                Planets.push(Neptune)
+            break
         }
     }
 }
@@ -618,52 +614,80 @@ function createSun(radius) {
     return sun
 }
 
+// too slow and so much lag
+// function Movements(event){
 
+//     var key = event.which
+//     delta = clock.getDelta(); // seconds.
+// 	moveDistance = 500 * delta; // 200 pixels per second
+// 	rotateAngle = Math.PI / 2 * delta;   // pi/2 radians (90 degrees) per second
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var render = function () {
+//     // using WASD to move the camera around
+//     if (key == 87)
+// 		camera.translateZ( -moveDistance )
+// 	if (key == 83)
+// 		camera.translateZ(  moveDistance )
+// 	if (key == 65)
+// 		camera.translateX( -moveDistance )
+// 	if (key == 68)
+// 		camera.translateX(  moveDistance )
+        
+//     // using QERF to rotate the camera around axis
+//     if (key == 81)
+//         camera.rotateOnAxis( new THREE.Vector3(0,1,0), rotateAngle);
+//     if (key == 69)
+//         camera.rotateOnAxis( new THREE.Vector3(0,1,0), -rotateAngle);
+//     if (key == 82)
+//         camera.rotateOnAxis( new THREE.Vector3(1,0,0), rotateAngle);
+//     if (key == 70)
+//         camera.rotateOnAxis( new THREE.Vector3(1,0,0), -rotateAngle);
     
-    requestAnimationFrame(render)
+//     if (key == 90) {
+//         camera.position.set(2000,0,0);
+//         camera.rotation.set(0,0,0);
+//         camera.lookAt(0, 0, 0)
+//     }
+// }
 
-    // sun rotation
-    // Sun.rotation.y += 0.001
-    Earth.rotation.y +=0.001
-    // Moon.rotation.y +=0.01
-    // Mercury.rotation.y +=0.01
-    // Saturn.rotation.y +=0.001
-    // SaturnsRing.rotation.z +=0.0001
-    // UranusRing.rotation.y += 0.01
-    // Jupiter.rotation.y +=0.001
-    // console.log(Planets)
-    // if(camera.position.x > 100) flag = true
-    // if(camera.position.x < 0) flag = false
-
-    // if(!flag) camera.position.x += 0.1
-    // else camera.position.x -= 0.1
+function render() {
+    
+    requestAnimationFrame(render)    
     renderer.render(scene, camera)
-};
 
-// CreateSystem_real()
+    delta = clock.getDelta(); // seconds.
+	moveDistance = 500 * delta; // 200 pixels per second
+	rotateAngle = Math.PI / 2 * delta;   // pi/2 radians (90 degrees) per second
+
+    // using WASD to move the camera around
+    if ( keyboard.pressed("W") )
+		camera.translateZ( -moveDistance )
+	if ( keyboard.pressed("S") )
+		camera.translateZ(  moveDistance )
+	if ( keyboard.pressed("A") )
+		camera.translateX( -moveDistance )
+	if ( keyboard.pressed("D") )
+		camera.translateX(  moveDistance )
+        
+    // using QERF to rotate the camera around axis
+    if (keyboard.pressed("Q"))
+        camera.rotateOnAxis( new THREE.Vector3(0,1,0), rotateAngle);
+    if (keyboard.pressed("E"))
+        camera.rotateOnAxis( new THREE.Vector3(0,1,0), -rotateAngle);
+    if (keyboard.pressed("R"))
+        camera.rotateOnAxis( new THREE.Vector3(1,0,0), rotateAngle);
+    if (keyboard.pressed("F"))
+        camera.rotateOnAxis( new THREE.Vector3(1,0,0), -rotateAngle);
+    
+    if (keyboard.pressed("Z")) {
+        camera.position.set(2000,0,0);
+        camera.rotation.set(0,0,0);
+        camera.lookAt(0, 0, 0)
+    }
+
+    // too slow and too much lag
+    // document.addEventListener("keydown", Movements, true)
+}
+
 loadPlanetsData()
 CreateSystem()
 render()
@@ -674,9 +698,9 @@ FIRST PART
     - make a visible-friendly distance from planets-sun
     - make the possibility to switch to true distance planets-sun
     - give textures to all objects (possible bump map and flares of light)
-    - background texture
+    DONE - background texture
     - make the orbits of all objects
-    - camera control even with mouse and keys (WASD + QEZC)
+    DONE - camera control even with mouse and keys (WASD + QEZC) 
     - maybe add some comets
 
 SECOND PART
@@ -694,3 +718,10 @@ maybe a good rocket model */
 
 /* https://github.com/mrdoob/three.js/blob/master/examples/js/controls/FirstPersonControls.js
 first person camera control */
+
+
+
+
+
+
+// C:\Users\sandr\Documents\GitHub\final-project-team-rocket-1
