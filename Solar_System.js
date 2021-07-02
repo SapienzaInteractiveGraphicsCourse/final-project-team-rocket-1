@@ -651,8 +651,8 @@ function createSun(radius) {
 
 function render() {
     
-    requestAnimationFrame(render)    
-    renderer.render(scene, camera)
+    requestAnimationFrame(render); 
+    renderer.render(scene, camera);
 
     delta = clock.getDelta(); // seconds.
 	moveDistance = 500 * delta; // 200 pixels per second
