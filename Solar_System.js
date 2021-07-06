@@ -54,6 +54,9 @@ light.position.set(0, 0, 0)
 scene.add(light)
 scene.add(new THREE.AmbientLight(0x333333))
 
+
+
+
 /* --------------------------------------------------------------------------------------- */
 
 function BigBang(radius) {
@@ -523,6 +526,20 @@ function  CreateSystem() {
     SaturnGroup.add(Ippocampo)
 } */
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* function to create a planet */
 function createPlanet(radius, bumpMapScale, mapTexture, bumpTexture, specularTexture) {
     
@@ -614,6 +631,9 @@ function createSun(radius) {
     return sun
 }
 
+
+
+
 // too slow and so much lag
 // function Movements(event){
 
@@ -690,6 +710,11 @@ function render() {
 
 loadPlanetsData()
 CreateSystem()
+
+
+
+
+
 render()
 
 /* TODO:
