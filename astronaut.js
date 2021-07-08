@@ -24,12 +24,12 @@ var torsoMat = new THREE.MeshBasicMaterial({
 
 
 
-
+//define geometry and materials
 
 const geometry = new THREE.BoxGeometry();
 
 const material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
-
+const materialBlack = new THREE.MeshBasicMaterial( { color: 0x000000 } );
 
 
 //torso
@@ -48,8 +48,7 @@ scene.add(torso); // add the cube to the scene. The scene becomes its parent Obj
 
 
 const head = new THREE.Mesh( geometry, material );
-//head.position.set(0, 0.6, 0) // cube is offset x = 5 from of its parent.
-//head.scale.set(0.8, 0.6, 0.7);
+
 head.scale.set(1.6, 1.2, 1.4);
 head.position.set(0, 1, 0)
 

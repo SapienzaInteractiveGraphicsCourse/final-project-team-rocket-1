@@ -678,16 +678,39 @@ function render() {
 	moveDistance = 500 * delta; // 200 pixels per second
 	rotateAngle = Math.PI / 2 * delta;   // pi/2 radians (90 degrees) per second
 
-    // using WASD to move the camera around
-    if ( keyboard.pressed("W") )
-		torso.translateZ( -moveDistance )
-	if ( keyboard.pressed("S") )
-		torso.translateZ(  moveDistance )
-	if ( keyboard.pressed("A") )
-		torso.translateX( -moveDistance )
-	if ( keyboard.pressed("D") )
-		torso.translateX(  moveDistance )
+    // using WASD to move  around
+    if ( keyboard.pressed("W") ){
+		//camera.translateZ( -moveDistance );
+        torso.translateX( -moveDistance );
+    }
+	if ( keyboard.pressed("S") ){
+		//camera.translateZ(  moveDistance );
+        torso.translateX(  moveDistance );
+    }
+	if ( keyboard.pressed("A") ){
+		//camera.translateX( -moveDistance );
+        torso.translateZ( moveDistance );
+    }
+	if ( keyboard.pressed("D") ){
+		//camera.translateX(  moveDistance );
+        torso.translateZ( -moveDistance );
+    }
         
+    //rotating
+
+    // rotate left/right/up/down
+	var rotation_matrix = new THREE.Matrix4().identity();
+	if ( keyboard.pressed("A") )
+		torso.rotateOnAxis( new THREE.Vector3(0,1,0), rotateAngle);
+	if ( keyboard.pressed("D") )
+		torso.rotateOnAxis( new THREE.Vector3(0,1,0), -rotateAngle);
+	if ( keyboard.pressed("R") )
+		torso.rotateOnAxis( new THREE.Vector3(1,0,0), rotateAngle);
+	if ( keyboard.pressed("F") )
+		torso.rotateOnAxis( new THREE.Vector3(1,0,0), -rotateAngle);
+
+    /*
+
     // using QERF to rotate the camera around axis
     if (keyboard.pressed("Q"))
         camera.rotateOnAxis( new THREE.Vector3(0,1,0), rotateAngle);
@@ -697,12 +720,21 @@ function render() {
         camera.rotateOnAxis( new THREE.Vector3(1,0,0), rotateAngle);
     if (keyboard.pressed("F"))
         camera.rotateOnAxis( new THREE.Vector3(1,0,0), -rotateAngle);
-    
+    */
     if (keyboard.pressed("Z")) {
-        camera.position.set(2000,0,0);
-        camera.rotation.set(0,0,0);
-        camera.lookAt(0, 0, 0)
+        torso.position.set(2000,0,0);
+        torso.rotation.set(0,0,0);
+       // camera.lookAt(0, 0, 0)
     }
+
+    var relativeCameraOffset = new THREE.Vector3(20,5,1);
+
+	var cameraOffset = relativeCameraOffset.applyMatrix4( torso.matrixWorld );
+
+	camera.position.x = cameraOffset.x;
+	camera.position.y = cameraOffset.y;
+	camera.position.z = cameraOffset.z;
+	camera.lookAt( torso.position );
 
     // too slow and too much lag
     // document.addEventListener("keydown", Movements, true)
