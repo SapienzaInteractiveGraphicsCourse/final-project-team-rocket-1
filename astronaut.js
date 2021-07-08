@@ -47,7 +47,7 @@ scene.add(torso); // add the cube to the scene. The scene becomes its parent Obj
 //head
 
 
-const head = new THREE.Mesh( geometry, material );
+const head = new THREE.Mesh( geometry, armsMat );
 
 head.scale.set(1.6, 1.2, 1.4);
 head.position.set(0, 1, 0)

@@ -704,10 +704,10 @@ function render() {
 		torso.rotateOnAxis( new THREE.Vector3(0,1,0), rotateAngle);
 	if ( keyboard.pressed("D") )
 		torso.rotateOnAxis( new THREE.Vector3(0,1,0), -rotateAngle);
-	if ( keyboard.pressed("R") )
-		torso.rotateOnAxis( new THREE.Vector3(1,0,0), rotateAngle);
 	if ( keyboard.pressed("F") )
-		torso.rotateOnAxis( new THREE.Vector3(1,0,0), -rotateAngle);
+		torso.rotateOnAxis( new THREE.Vector3(0,0,1), rotateAngle);
+	if ( keyboard.pressed("R") )
+		torso.rotateOnAxis( new THREE.Vector3(0,0,1), -rotateAngle);
 
     /*
 
