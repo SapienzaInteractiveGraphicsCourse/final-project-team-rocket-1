@@ -680,13 +680,13 @@ function render() {
 
     // using WASD to move the camera around
     if ( keyboard.pressed("W") )
-		camera.translateZ( -moveDistance )
+		torso.translateZ( -moveDistance )
 	if ( keyboard.pressed("S") )
-		camera.translateZ(  moveDistance )
+		torso.translateZ(  moveDistance )
 	if ( keyboard.pressed("A") )
-		camera.translateX( -moveDistance )
+		torso.translateX( -moveDistance )
 	if ( keyboard.pressed("D") )
-		camera.translateX(  moveDistance )
+		torso.translateX(  moveDistance )
         
     // using QERF to rotate the camera around axis
     if (keyboard.pressed("Q"))
