@@ -284,20 +284,27 @@ if ( keyboard.pressed("J") ){
 }
 
 if(attack){
+    
     attackCount+= 0.1;
     if(attackCount < 2 ){
         leftUpperArm.rotation.z -= 0.11;
-        torso.rotation.y -= 0.2;
-        head.rotation.y += 0.2;
+        torso.translateX( -moveDistance );
+        //head.rotation.y += 0.2;
+        leftUpperLeg.rotation.z += 0.02;
+        rightUpperLeg.rotation.z -= 0.02;
     }
     if(attackCount >= 2 && attackCount < 4){
         leftUpperArm.rotation.z += 0.11;
-        torso.rotation.y += 0.2; 
-        head.rotation.y -= 0.2; 
+        torso.translateX( moveDistance );
+        //head.rotation.y -= 0.2; 
+        leftUpperLeg.rotation.z -= 0.02;
+        rightUpperLeg.rotation.z += 0.02;
     }
     if(attackCount >= 4){
         attackCount = 0;
         attack = false;
+        camera.lookAt(torso.position);
+        
     }
 }
 
