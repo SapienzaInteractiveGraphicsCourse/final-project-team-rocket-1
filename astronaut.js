@@ -246,6 +246,7 @@ function swordNotAttack(){
 
 //small animations 
 var count = 0;
+var attackCount = 0;
 const animate = function () {
 
     requestAnimationFrame( animate );
@@ -277,22 +278,30 @@ if ( keyboard.pressed("H") ){
 }
 
 if ( keyboard.pressed("J") ){
-    if(!attack){
-        swordAttack();
-        attack = true;
-    }
+    attack = true; 
     
     
 }
 
-if ( keyboard.pressed("K") ){
-    if(attack){
-        swordNotAttack();
+if(attack){
+    attackCount+= 0.1;
+    if(attackCount < 2 ){
+        leftUpperArm.rotation.z -= 0.11;
+        torso.rotation.y -= 0.2;
+        head.rotation.y += 0.2;
+    }
+    if(attackCount >= 2 && attackCount < 4){
+        leftUpperArm.rotation.z += 0.11;
+        torso.rotation.y += 0.2; 
+        head.rotation.y -= 0.2; 
+    }
+    if(attackCount >= 4){
+        attackCount = 0;
         attack = false;
     }
-    
-    
 }
+
+
 
 
 
