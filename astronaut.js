@@ -1,10 +1,13 @@
 //Astronaut and pet 
 
 
+//flags
+var walking = true;
+var sword = false;
+var attack = false;
 
 
-
-//textures
+//textures--------------------------------------------------------------------------------
 var texloader = new THREE.TextureLoader();
 var textureArms = texloader.load('textures/mainCharacter/arms.png');
 var armsMat = new THREE.MeshBasicMaterial({
@@ -14,6 +17,11 @@ var armsMat = new THREE.MeshBasicMaterial({
 var textureTorso = texloader.load('textures/mainCharacter/body.png');
 var torsoMat = new THREE.MeshBasicMaterial({
     map: textureTorso,
+   
+})
+var textureSword = texloader.load('textures/mainCharacter/sword.jpg');
+var swordMat = new THREE.MeshBasicMaterial({
+    map: textureSword,
    
 })
 
@@ -198,33 +206,101 @@ l6.scale.set(0.2, 0.8, 0.1);
 l6.rotation.y -= 0.32;
 
 body.add(l6);
+//OTHER OBJECTS---------------------------------------------------------------------------------------
+//--------------these can be used for animations----------------------------------------------------
+//------------------------------------------------------------------------------------------------
+
+
+//-------------------------------------------sword
+
+
+const s1 = new THREE.Mesh( geometry, swordMat);
+s1.position.set(0, -2.6, 0) //forward,up,-
+s1.scale.set(1, 4, 1);
 
 
 
-//small animations which makes the astronaut moving his arms up and down
+function createSword(){
+leftLowerArm.add(s1);
+}
+function removeSword(){
+    leftLowerArm.remove(s1);
+}
+
+//TODO: function swordAttack, che porta il braccio in avanti 
+
+function swordAttack(){
+    leftUpperArm.rotation.z -= 0.82;
+}
+function swordNotAttack(){
+    leftUpperArm.rotation.z += 0.82;
+}
+
+
+
+
+
+
+
+
+
+//small animations 
 var count = 0;
 const animate = function () {
 
     requestAnimationFrame( animate );
 
-    delta = clock.getDelta(); // seconds.
-	moveDistance = 500 * delta;
-
-if ( keyboard.pressed("W") )
-    torso.translateZ( -moveDistance );
-if ( keyboard.pressed("S") )
-    torso.translateZ(  moveDistance );
-if ( keyboard.pressed("A") )
-    torso.translateX( -moveDistance );
-if ( keyboard.pressed("D") )
-    torso.translateX(  moveDistance );
+    
 
 
 
 
+//sword animations
+if ( keyboard.pressed("G") ){
+    if(!sword){
+        createSword();
+        sword = true;
+    }
+    
+    
+    
+}
 
 
-   
+if ( keyboard.pressed("H") ){
+    if(sword){
+        removeSword();
+        sword = false;
+    }
+    
+    
+}
+
+if ( keyboard.pressed("J") ){
+    if(!attack){
+        swordAttack();
+        attack = true;
+    }
+    
+    
+}
+
+if ( keyboard.pressed("K") ){
+    if(attack){
+        swordNotAttack();
+        attack = false;
+    }
+    
+    
+}
+
+
+
+
+
+
+//walking animation(the astronaut goes up and down and moves his arms)
+   if(walking){
     count+=0.1;
 
 
@@ -256,7 +332,7 @@ if ( keyboard.pressed("D") )
     }else if(count > 10){
         count = 0;
     }
-
+}
    
     
 };
