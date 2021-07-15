@@ -1,6 +1,13 @@
 //Astronaut and pet 
 
 
+//------------------------------------
+//WASD --> move
+//G--> extract sword
+//H--> sheathe sword
+//J-->sword attack
+
+
 //flags
 var walking = true;
 var sword = false;
@@ -15,8 +22,13 @@ var armsMat = new THREE.MeshBasicMaterial({
    
 })
 var texturePlatform = texloader.load('textures/mainCharacter/platform.jpg');
+var texturePlatform2 = texloader.load('textures/mainCharacter/platform.png');
 var platformMat = new THREE.MeshBasicMaterial({
     map: texturePlatform,
+   
+})
+var platformMat2 = new THREE.MeshBasicMaterial({
+    map: texturePlatform2,
    
 })
 var textureTorso = texloader.load('textures/mainCharacter/body.png');
@@ -90,16 +102,23 @@ scene.add(torso);
 
 
 // platform
+
 const rectangle = new THREE.BoxGeometry(2.5, 5, 0.125)
 var recmaterial = new THREE.MeshPhongMaterial({
     color: 'green'
 })
-var platform = new THREE.Mesh(rectangle,platformMat)
+var platform = new THREE.Mesh(rectangle,platformMat2)
 platform.rotation.x = Math.PI/2
-platform.position.set(0, -1.4, 0)
+platform.position.set(0, -1.9, 0)
 torso.add(platform);
 
+const sphere = new THREE.SphereGeometry( 0.7, 40, 20 );
+const p1 = new THREE.Mesh( sphere, platformMat );
+p1.position.set(0, 0, 0) // cube is offset x = 5 from of its parent.
+p1.scale.set(1, 1, 1);
+platform.add(p1);
 //head
+
 
 
 const head = new THREE.Mesh( geometry, headMat );
@@ -204,7 +223,7 @@ var alienMaterial = new THREE.MeshBasicMaterial({
 //BUILDING BODY AND 'LEGS'
 const body = new THREE.Mesh( geometry, alienMaterial );
 body.position.set(0, 3, 3.) //forward,up,-
-body.scale.set(1, 0.8, 1);
+body.scale.set(1.5, 0.8, 1);
 
 
 torso.add(body);
@@ -241,14 +260,14 @@ body.add(l4);
 
 //-------------------------------------
 const l5 = new THREE.Mesh( geometry, alienMaterial );
-l5.position.set(-0.5, -0.70, 0) //forward,up,-
+l5.position.set(-0.35, -0.70, 0) //forward,up,-
 l5.scale.set(0.2, 0.8, 0.1);
 l5.rotation.y -= 0.32;
 
 body.add(l5);
 //-------------------------------
 const l6 = new THREE.Mesh( geometry, alienMaterial);
-l6.position.set(0.5, -0.70, 0) //forward,up,-
+l6.position.set(0.35, -0.70, 0) //forward,up,-
 l6.scale.set(0.2, 0.8, 0.1);
 l6.rotation.y -= 0.32;
 
@@ -331,6 +350,7 @@ if ( keyboard.pressed("J") ){
 }
 
 if(attack){
+    if(sword){
     
     attackCount+= 0.1;
     if(attackCount < 2.1 ){
@@ -355,6 +375,9 @@ if(attack){
         camera.lookAt(torso.position);
         
     }
+}else{
+    attack = false;
+}
     
 }
 
@@ -375,6 +398,8 @@ if(attack){
     if(count <= 5){
     leftUpperArm.rotation.x -= 0.01;
     rightUpperArm.rotation.x += 0.01;
+
+    body.rotation.x -= 0.001; 
     //------
     l1.rotation.x += 0.005;
     l2.rotation.x -= 0.005;
@@ -387,6 +412,7 @@ if(attack){
     }else if(count > 5 && count <= 10){
         leftUpperArm.rotation.x += 0.01;
         rightUpperArm.rotation.x -= 0.01; 
+        body.rotation.x += 0.001; 
        // torso.rotation.z -= 0.005;
         torso.translateY( -0.3 );
         platform.translateZ(0.002)
