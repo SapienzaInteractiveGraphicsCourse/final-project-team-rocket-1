@@ -230,21 +230,21 @@ torso.add(body);
 
 //-----------------------
 const l1 = new THREE.Mesh( geometry, alienMaterial );
-l1.position.set(0.4, -0.70, -0.5) //forward,up,-
+l1.position.set(0.35, -0.70, -0.5) //forward,up,-
 l1.scale.set(0.2, 0.8, 0.1);
 l1.rotation.x += 0.32;
 
 body.add(l1);
 //---------------------
 const l2 = new THREE.Mesh( geometry, alienMaterial);
-l2.position.set(0.4, -0.70, 0.5) //forward,up,-
+l2.position.set(0.35, -0.70, 0.5) //forward,up,-
 l2.scale.set(0.2, 0.8, 0.1);
 l2.rotation.x -= 0.32;
 
 body.add(l2);
 //--------------------------
 const l3 = new THREE.Mesh( geometry, alienMaterial );
-l3.position.set(-0.4, -0.70, -0.5) //forward,up,-
+l3.position.set(-0.35, -0.70, -0.5) //forward,up,-
 l3.scale.set(0.2, 0.8, 0.1);
 l3.rotation.x += 0.32;
 
@@ -252,7 +252,7 @@ body.add(l3);
 
 //-------------------------------------
 const l4 = new THREE.Mesh( geometry, alienMaterial );
-l4.position.set(-0.4, -0.70, +0.5) //forward,up,-
+l4.position.set(-0.35, -0.70, +0.5) //forward,up,-
 l4.scale.set(0.2, 0.8, 0.1);
 l4.rotation.x -= 0.32;
 
@@ -401,11 +401,12 @@ if(attack){
 
     body.rotation.x -= 0.001; 
     //------
-    l1.rotation.x += 0.005;
+   l1.rotation.x += 0.005;
     l2.rotation.x -= 0.005;
     l3.rotation.x += 0.005;
-    l4.rotation.z += 0.005;
+    l4.rotation.x -= 0.005;
     l5.rotation.z -= 0.005;
+    l6.rotation.z += 0.005;
     //torso.rotation.z += 0.005;
     torso.translateY( 0.3 );
     platform.translateZ(-0.002)
@@ -420,8 +421,9 @@ if(attack){
         l1.rotation.x -= 0.005;
         l2.rotation.x += 0.005;
         l3.rotation.x -= 0.005;
-        l4.rotation.z -= 0.005;
+        l4.rotation.x += 0.005;
         l5.rotation.z += 0.005;
+        l6.rotation.z -= 0.005;
         
     }else if(count > 10){
         count = 0;
