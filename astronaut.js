@@ -48,7 +48,15 @@ torso.scale.set(40, 70, 60);
 scene.add(torso); // add the cube to the scene. The scene becomes its parent Object3D.
 
 
-
+// platform
+const rectangle = new THREE.BoxGeometry(300, 100, 5)
+var recmaterial = new THREE.MeshPhongMaterial({
+    color: 'green'
+})
+var platform = new THREE.Mesh(rectangle,recmaterial)
+platform.rotation.x = Math.PI/2
+platform.position.set(900, -85, 0)
+scene.add(platform)
 
 
 
@@ -332,12 +340,14 @@ if(attack){
     l4.rotation.z += 0.005;
     l5.rotation.z -= 0.005;
     //torso.rotation.z += 0.005;
-    torso.translateY( 2 );
+    torso.translateY( 1 );
+    platform.translateX(1)
     }else if(count > 5 && count <= 10){
         leftUpperArm.rotation.x += 0.01;
         rightUpperArm.rotation.x -= 0.01; 
        // torso.rotation.z -= 0.005;
-        torso.translateY( -2 );
+        torso.translateX( -1 );
+        platform.translateY(1)
      //---------------------
         l1.rotation.x -= 0.005;
         l2.rotation.x += 0.005;

@@ -471,7 +471,7 @@ function render() {
     Sun = Planets[0]
     Sun.rotation.order = 'ZXY';
     Sun.rotation.x = 0;
-    Sun.rotation.y += (deltaTimeD / PlanetsData[SUN]["period"]) * 2 * Math.PI;
+    Sun.rotation.y += (deltaTimeD / PlanetsData[SUN]["period"]) * Math.PI/10;
     Sun.rotation.z = PlanetsData[SUN]["tilt"] * Math.PI / 180; // tilt in radians
     Sun.updateMatrix();
 
