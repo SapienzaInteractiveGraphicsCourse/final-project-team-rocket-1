@@ -14,6 +14,11 @@ var armsMat = new THREE.MeshBasicMaterial({
     map: textureArms,
    
 })
+var texturePlatform = texloader.load('textures/mainCharacter/platform.jpg');
+var platformMat = new THREE.MeshBasicMaterial({
+    map: texturePlatform,
+   
+})
 var textureTorso = texloader.load('textures/mainCharacter/body.png');
 var torsoMat = new THREE.MeshBasicMaterial({
     map: textureTorso,
@@ -68,15 +73,7 @@ const materialBlack = new THREE.MeshBasicMaterial( { color: 0x000000 } );
 
 
 
-// platform
-const rectangle = new THREE.BoxGeometry(100, 300, 5)
-var recmaterial = new THREE.MeshPhongMaterial({
-    color: 'green'
-})
-var platform = new THREE.Mesh(rectangle,recmaterial)
-platform.rotation.x = Math.PI/2
-platform.position.set(900, -85, 0)
-scene.add(platform)
+
 
 
 
@@ -84,12 +81,23 @@ scene.add(platform)
 const torso = new THREE.Mesh( geometry, torsoMat );
 torso.position.set(900, 0, 0) // cube is offset x = 5 from of its parent.
 torso.scale.set(40, 70, 60);
+//in the case of the platform as father, use the lines below
+//torso.position.set(0, 0, -85)
+//torso.scale.set(40, 70, 60);
+//torso.rotation.x = -Math.PI/2
+//----------------
+scene.add(torso);
 
-scene.add(torso); // add the cube to the scene. The scene becomes its parent Object3D.
 
-
-
-
+// platform
+const rectangle = new THREE.BoxGeometry(2.5, 5, 0.125)
+var recmaterial = new THREE.MeshPhongMaterial({
+    color: 'green'
+})
+var platform = new THREE.Mesh(rectangle,platformMat)
+platform.rotation.x = Math.PI/2
+platform.position.set(0, -1.4, 0)
+torso.add(platform);
 
 //head
 
@@ -325,26 +333,29 @@ if ( keyboard.pressed("J") ){
 if(attack){
     
     attackCount+= 0.1;
-    if(attackCount < 2 ){
+    if(attackCount < 2.1 ){
         leftUpperArm.rotation.z -= 0.11;
         torso.translateX( -moveDistance );
+        platform.translateX( 0.1);
         //head.rotation.y += 0.2;
         leftUpperLeg.rotation.z += 0.02;
         rightUpperLeg.rotation.z -= 0.02;
     }
-    if(attackCount >= 2 && attackCount < 4){
+    if(attackCount >= 2.1 && attackCount < 4.1){
         leftUpperArm.rotation.z += 0.11;
         torso.translateX( moveDistance );
+        platform.translateX( -0.1 );
         //head.rotation.y -= 0.2; 
         leftUpperLeg.rotation.z -= 0.02;
         rightUpperLeg.rotation.z += 0.02;
     }
-    if(attackCount >= 4){
+    if(attackCount >= 4.1){
         attackCount = 0;
         attack = false;
         camera.lookAt(torso.position);
         
     }
+    
 }
 
 
@@ -371,14 +382,14 @@ if(attack){
     l4.rotation.z += 0.005;
     l5.rotation.z -= 0.005;
     //torso.rotation.z += 0.005;
-    torso.translateY( 2 );
-    //platform.translateY(1)
+    torso.translateY( 0.3 );
+    platform.translateZ(-0.002)
     }else if(count > 5 && count <= 10){
         leftUpperArm.rotation.x += 0.01;
         rightUpperArm.rotation.x -= 0.01; 
        // torso.rotation.z -= 0.005;
-        torso.translateY( -2 );
-        //platform.translateY(-1)
+        torso.translateY( -0.3 );
+        platform.translateZ(0.002)
      //---------------------
         l1.rotation.x -= 0.005;
         l2.rotation.x += 0.005;
