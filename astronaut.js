@@ -24,6 +24,32 @@ var swordMat = new THREE.MeshBasicMaterial({
     map: textureSword,
    
 })
+var textureFace = texloader.load('textures/mainCharacter/face.jpg');
+var headMat = [ new THREE.MeshBasicMaterial({
+    map: textureArms,
+   
+}),
+new THREE.MeshBasicMaterial({
+    map: textureFace,
+   
+}),
+new THREE.MeshBasicMaterial({
+    map: textureArms,
+   
+}),
+new THREE.MeshBasicMaterial({
+    map: textureArms,
+   
+}),
+new THREE.MeshBasicMaterial({
+    map: textureArms,
+   
+}),
+new THREE.MeshBasicMaterial({
+    map: textureArms,
+   
+})]
+
 
 
 
@@ -40,16 +66,10 @@ const material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
 const materialBlack = new THREE.MeshBasicMaterial( { color: 0x000000 } );
 
 
-//torso
-const torso = new THREE.Mesh( geometry, torsoMat );
-torso.position.set(900, 0, 0) // cube is offset x = 5 from of its parent.
-torso.scale.set(40, 70, 60);
-
-scene.add(torso); // add the cube to the scene. The scene becomes its parent Object3D.
 
 
 // platform
-const rectangle = new THREE.BoxGeometry(300, 100, 5)
+const rectangle = new THREE.BoxGeometry(100, 300, 5)
 var recmaterial = new THREE.MeshPhongMaterial({
     color: 'green'
 })
@@ -60,10 +80,21 @@ scene.add(platform)
 
 
 
+//torso
+const torso = new THREE.Mesh( geometry, torsoMat );
+torso.position.set(900, 0, 0) // cube is offset x = 5 from of its parent.
+torso.scale.set(40, 70, 60);
+
+scene.add(torso); // add the cube to the scene. The scene becomes its parent Object3D.
+
+
+
+
+
 //head
 
 
-const head = new THREE.Mesh( geometry, armsMat );
+const head = new THREE.Mesh( geometry, headMat );
 
 head.scale.set(1.6, 1.2, 1.4);
 head.position.set(0, 1, 0)
@@ -340,14 +371,14 @@ if(attack){
     l4.rotation.z += 0.005;
     l5.rotation.z -= 0.005;
     //torso.rotation.z += 0.005;
-    torso.translateY( 1 );
-    platform.translateX(1)
+    torso.translateY( 2 );
+    //platform.translateY(1)
     }else if(count > 5 && count <= 10){
         leftUpperArm.rotation.x += 0.01;
         rightUpperArm.rotation.x -= 0.01; 
        // torso.rotation.z -= 0.005;
-        torso.translateX( -1 );
-        platform.translateY(1)
+        torso.translateY( -2 );
+        //platform.translateY(-1)
      //---------------------
         l1.rotation.x -= 0.005;
         l2.rotation.x += 0.005;
