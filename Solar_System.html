@@ -13,6 +13,21 @@
                 width: 0px; 
                 
             }
+            .container {
+                position: relative;
+            }
+            #overlay {
+                font-size: x-large;
+                 position: absolute;
+                  left: 10px;
+                  top: 10px;
+                  background-color: rgba(0, 0, 0, 0.7);
+                  color: white;
+                  font-family: monospace;
+                  padding: 1em;
+                  text-shadow: 0px 0px 5px rgb(156, 192, 209), 0px 0px 5px rgb(156, 192, 209), 0px 0px 5px rgb(156, 192, 209), 0px 0px 5px rgb(156, 192, 209);
+                }
+
             
         </style>
     </head>
@@ -26,14 +41,23 @@
 
 
 <body>
+ <div class="container">
+        
+       
+  
 
-    
-  
-  
 <canvas id="gl-canvas">
-    
+ 
 Oops ... your browser doesn't support the HTML5 canvas element
 </canvas>
-
+<div id="overlay">
+    <div><b>CONTROLS:</b> </div>
+    <div>Press <b>'B'</b> to control the astronaut. </div>
+    <div>While in B-mode, you can move the astronaut with WASD </div>
+    <div>and extract the sword pressing <b>'G'</b> and attack with <b>'J'</b>.</div>
+    <div>In order to sheathe the sword, press <b>'H'</b>.</div>
+    <div>Press <b>'P'</b> and then select a number from 0 to 9 to see the planets.</div>
+  </div>
+</div>
 </body>
 </html>
