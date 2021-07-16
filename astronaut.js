@@ -75,6 +75,7 @@ new THREE.MeshBasicMaterial({
 
 
 
+
 //define geometry and materials
 
 const geometry = new THREE.BoxGeometry();
@@ -101,26 +102,70 @@ torso.scale.set(40, 70, 60);
 scene.add(torso);
 
 
-// platform
+// platform-------------------------------------------------------
 
 const rectangle = new THREE.BoxGeometry(2.5, 5, 0.125)
 var recmaterial = new THREE.MeshPhongMaterial({
     color: 'green'
 })
+
 var platform = new THREE.Mesh(rectangle,platformMat2)
 platform.rotation.x = Math.PI/2
 platform.position.set(0, -1.9, 0)
 torso.add(platform);
 
 const sphere = new THREE.SphereGeometry( 0.7, 40, 20 );
-const p1 = new THREE.Mesh( sphere, platformMat );
+const p1 = new THREE.Mesh( sphere, platformMat);
 p1.position.set(0, 0, 0) // cube is offset x = 5 from of its parent.
 p1.scale.set(1, 1, 1);
 platform.add(p1);
-//head
+//little spheres
+const p2 = new THREE.Mesh( sphere, platformMat);
+p2.position.set(1, 2, 0) // cube is offset x = 5 from of its parent.
+p2.scale.set(0.2, 0.2, 0.2);
+platform.add(p2);
+const p3 = new THREE.Mesh( sphere, platformMat);
+p3.position.set(-1, 2, 0) // cube is offset x = 5 from of its parent.
+p3.scale.set(0.2, 0.2, 0.2);
+platform.add(p3);
+const p4 = new THREE.Mesh( sphere, platformMat);
+p4.position.set(1, -2, 0) // cube is offset x = 5 from of its parent.
+p4.scale.set(0.2, 0.2, 0.2);
+platform.add(p4);
+const p5 = new THREE.Mesh( sphere, platformMat);
+p5.position.set(-1, -2, 0) // cube is offset x = 5 from of its parent.
+p5.scale.set(0.2, 0.2, 0.2);
+platform.add(p5);
+const p6 = new THREE.Mesh( sphere, platformMat);
+p6.position.set(-1, 0, 0) // cube is offset x = 5 from of its parent.
+p6.scale.set(0.2, 0.2, 0.2);
+platform.add(p6);
+const p7 = new THREE.Mesh( sphere, platformMat);
+p7.position.set(1, 0, 0) // cube is offset x = 5 from of its parent.
+p7.scale.set(0.2, 0.2, 0.2);
+platform.add(p7);
+
+//cones
+const cone = new THREE.ConeGeometry( 2, 40, 8);
+const c1 = new THREE.Mesh( cone, platformMat);
+c1.scale.set(0.1, 0.1, 0.1);
+c1.position.set(0, 3.5, 0);
+c1.rotation.y = Math.PI;
+platform.add( c1);
+const c2 = new THREE.Mesh( cone, platformMat);
+c2.scale.set(0.1, 0.1, 0.1);
+c2.position.set(0, -3.5, 0);
+c2.rotation.y = Math.PI;
+c2.rotation.z = Math.PI;
+
+
+platform.add( c2);
 
 
 
+
+
+//head--------------------------------------------
 const head = new THREE.Mesh( geometry, headMat );
 
 head.scale.set(1.6, 1.2, 1.4);
@@ -144,6 +189,7 @@ torso.add(leftUpperArm); // add the cube to the scene. The scene becomes its par
 const rightUpperArm = new THREE.Mesh( geometry, armsMat );
 rightUpperArm.position.set(0, 0.2, -0.57) //forward,up,left
 rightUpperArm.scale.set(0.3, 0.5, 0.1);
+
 rightUpperArm.rotation.x += 0.32;
 
 torso.add(rightUpperArm); // add the cube to the scene. The scene becomes its parent Object3D.
@@ -155,6 +201,7 @@ torso.add(rightUpperArm); // add the cube to the scene. The scene becomes its pa
 const leftLowerArm = new THREE.Mesh( geometry, armsMat );
 leftLowerArm.position.set(0, -0.75, 0) //forward,up,-
 leftLowerArm.scale.set(1, 0.5, 1);
+
 
 
 leftUpperArm.add(leftLowerArm); // add te cube to the scene. The scene becomes its parent Object3D.
@@ -293,14 +340,9 @@ function removeSword(){
     leftLowerArm.remove(s1);
 }
 
-//TODO: function swordAttack, che porta il braccio in avanti 
-
-function swordAttack(){
-    leftUpperArm.rotation.z -= 0.82;
-}
-function swordNotAttack(){
-    leftUpperArm.rotation.z += 0.82;
-}
+//written parts
+//--------------------------------------------------------
+//----------------------------------
 
 
 
@@ -325,6 +367,7 @@ const animate = function () {
 //sword animations
 if ( keyboard.pressed("G") ){
     if(!sword){
+       
         createSword();
         sword = true;
     }
@@ -360,6 +403,7 @@ if(attack){
         //head.rotation.y += 0.2;
         leftUpperLeg.rotation.z += 0.02;
         rightUpperLeg.rotation.z -= 0.02;
+
     }
     if(attackCount >= 2.1 && attackCount < 4.1){
         leftUpperArm.rotation.z += 0.11;
@@ -390,6 +434,8 @@ if(attack){
 
 //walking animation(the astronaut goes up and down and moves his arms)
    if(walking){
+
+   
     count+=0.1;
 
 
@@ -407,15 +453,29 @@ if(attack){
     l4.rotation.x -= 0.005;
     l5.rotation.z -= 0.005;
     l6.rotation.z += 0.005;
-    //torso.rotation.z += 0.005;
+    //translation
     torso.translateY( 0.3 );
+    body.translateY( -0.03 );
     platform.translateZ(-0.002)
+   //platform colors
+   p1.material = material;
+   p2.material = platformMat;
+   p3.material = platformMat;
+   p4.material = platformMat;
+   p5.material = platformMat;
+   p6.material = material;
+   p7.material = material;
+
+
+
+
     }else if(count > 5 && count <= 10){
         leftUpperArm.rotation.x += 0.01;
         rightUpperArm.rotation.x -= 0.01; 
         body.rotation.x += 0.001; 
        // torso.rotation.z -= 0.005;
         torso.translateY( -0.3 );
+        body.translateY( 0.03 );
         platform.translateZ(0.002)
      //---------------------
         l1.rotation.x -= 0.005;
@@ -424,6 +484,14 @@ if(attack){
         l4.rotation.x += 0.005;
         l5.rotation.z += 0.005;
         l6.rotation.z -= 0.005;
+        //colors
+        p1.material = platformMat;
+        p2.material = material;
+        p3.material = material;
+        p4.material = material;
+        p5.material = material;
+        p6.material = platformMat;
+        p7.material = platformMat;
         
     }else if(count > 10){
         count = 0;
