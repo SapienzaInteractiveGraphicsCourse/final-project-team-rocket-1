@@ -2,6 +2,9 @@
 
 var flag = false
 
+
+var collidableMeshList = [];
+
 // planets numbers
 var SUN = 0
 var MERCURY = 1
@@ -13,6 +16,8 @@ var SATURN = 6
 var URANUS = 7
 var NEPTUNE = 8
 var MOON = 9
+
+var SunCollision;
 
 // planets array and data array
 var Planets = []
@@ -67,6 +72,8 @@ renderer.setSize( innerWidth, innerHeight )
 document.body.appendChild( renderer.domElement )
 
 // setup lights
+
+
 var light = new THREE.PointLight(0xffffff, 1)
 light.position.set(0, 0, 0)
 scene.add(light)
@@ -467,14 +474,17 @@ function render() {
     }
 
     // rotate the Sun
-    console.log(Sun)
+    //console.log(Sun)
+    collidableMeshList.push(Sun);
     Sun = Planets[0]
     Sun.rotation.order = 'ZXY';
     Sun.rotation.x = 0;
     Sun.rotation.y += (deltaTimeD / PlanetsData[SUN]["period"]) * Math.PI/10;
     Sun.rotation.z = PlanetsData[SUN]["tilt"] * Math.PI / 180; // tilt in radians
     Sun.updateMatrix();
-
+    
+    
+    
     
     // change view modality
     if(keyboard.pressed("P")) {
@@ -493,12 +503,13 @@ function render() {
         freefocus = true
     }
 
+
     if(bodyfocus == true) {
         // BODY MOVEMENTS
         // using WASD to move  around
         if ( keyboard.pressed("W") ){
             //camera.translateZ( -moveDistance );
-            torso.translateX( -moveDistance );
+            torso.translateX( -moveDistance);
         }
         if ( keyboard.pressed("S") ){
             //camera.translateZ(  moveDistance );
@@ -512,6 +523,106 @@ function render() {
             //camera.translateX(  moveDistance );
             torso.translateZ( -moveDistance );
         }
+        //go up and down with spacebar and V----------
+        if ( keyboard.pressed(" ") ){
+            //camera.translateX(  moveDistance );
+            torso.translateY( moveDistance );
+        }
+        if ( keyboard.pressed("V") ){
+            //camera.translateX(  moveDistance );
+            torso.translateY( -moveDistance );
+        } 
+
+
+        //COLLISION DETECTION-----------------------------------------------------------------------
+        //TORSO
+        const geomT = torso.geometry;
+         geomT.computeBoundingBox();
+        var torsoBB = geomT.boundingBox;
+        //SUN
+        const geomS = Sun.geometry;
+        geomS.computeBoundingBox();
+        var SunBB = geomS.boundingBox;
+        //  OTHER PLANETS 
+        //for each planet, we clone the bounding box of the sun
+        var MercuryBB = SunBB.clone();
+        var VenusBB = SunBB.clone();
+        var EarthBB = SunBB.clone();
+        var MarsBB = SunBB.clone();
+        var JupiterBB = SunBB.clone();
+        var SaturnBB = SunBB.clone();
+        var UranusBB = SunBB.clone();
+        var NeptuneBB = SunBB.clone();
+        var MoonBB = SunBB.clone();
+
+        //then we apply the right matrix for each box
+        SunBB.applyMatrix4(Sun.matrixWorld);
+        torsoBB.applyMatrix4(torso.matrixWorld);
+        MercuryBB.applyMatrix4(Mercury.matrixWorld);
+        VenusBB.applyMatrix4(Venus.matrixWorld);
+        EarthBB.applyMatrix4(Earth.matrixWorld);
+        MarsBB.applyMatrix4(Mars.matrixWorld);
+        JupiterBB.applyMatrix4(Jupiter.matrixWorld);
+        SaturnBB.applyMatrix4(Saturn.matrixWorld);
+        UranusBB.applyMatrix4(Uranus.matrixWorld);
+        NeptuneBB.applyMatrix4(Neptune.matrixWorld);
+        MoonBB.applyMatrix4(Moon.matrixWorld);
+        //collision
+         SunCollision = torsoBB.intersectsBox(SunBB);
+
+        
+        if (SunCollision){
+            
+            torso.position.set(4000, 0, 0);
+           
+        }
+        
+        //--------------------------------------------------------------------------------
+         //collision detection with distance
+        
+
+
+
+/*
+
+
+         var distanceFromSun = (torso.position.x - Sun.position.x)**2 + (torso.position.y - Sun.position.y)**2 + (torso.position.z - Sun.position.z)**2 ;
+         distanceFromSun= Math.sqrt(distanceFromSun); 
+           if(distanceFromSun < 694.439)
+           torso.position.set(900, 0, 0);
+        
+      */
+    
+
+
+     
+        //explore planets-----------------------------------------------------------------------
+        if ( keyboard.pressed("0") ) 
+        torso.position.set(Planets[0].position.x, Planets[0].position.y-100, Planets[0].position.z + 1000)
+        if ( keyboard.pressed("1") )
+            torso.position.set(Planets[1].position.x, Planets[1].position.y + 10 , Planets[1].position.z  + 1000 );
+            
+        
+        
+        if ( keyboard.pressed("2") ) 
+        torso.position.set(Planets[2].position.x, Planets[2].position.y + 10, Planets[2].position.z + 1000)
+        if ( keyboard.pressed("3") ) 
+        torso.position.set(Planets[3].position.x, Planets[3].position.y + 10, Planets[3].position.z + 1000)
+        if ( keyboard.pressed("4") )
+        torso.position.set(Planets[4].position.x, Planets[4].position.y + 10, Planets[4].position.z + 1000)
+        if ( keyboard.pressed("5") )
+         torso.position.set(Planets[5].position.x, Planets[5].position.y + 10, Planets[5].position.z + 1000)
+        if ( keyboard.pressed("6") )
+        torso.position.set(Planets[6].position.x, Planets[6].position.y + 10, Planets[6].position.z + 1000)
+        if ( keyboard.pressed("7") )
+        torso.position.set(Planets[7].position.x, Planets[7].position.y + 10, Planets[7].position.z + 1000)
+        if ( keyboard.pressed("8") )
+        torso.position.set(Planets[8].position.x, Planets[8].position.y + 10, Planets[8].position.z + 1000)
+        if ( keyboard.pressed("9") ) 
+        torso.position.set(Planets[9].position.x, Planets[9].position.y + 10, Planets[9].position.z + 1000)
+
+
+
 
         // rotate left/right/up/down
         if ( keyboard.pressed("A") )

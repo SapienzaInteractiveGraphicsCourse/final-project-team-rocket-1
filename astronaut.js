@@ -8,10 +8,15 @@
 //J-->sword attack
 
 
+
+
+
+
 //flags
 var walking = true;
 var sword = false;
 var attack = false;
+
 
 
 //textures--------------------------------------------------------------------------------
@@ -25,6 +30,8 @@ var texturePlatform = texloader.load('textures/mainCharacter/platform.jpg');
 var texturePlatform2 = texloader.load('textures/mainCharacter/platform.png');
 var platformMat = new THREE.MeshBasicMaterial({
     map: texturePlatform,
+    opacity: 0.7,
+    transparent: true,
    
 })
 var platformMat2 = new THREE.MeshBasicMaterial({
@@ -34,8 +41,10 @@ var platformMat2 = new THREE.MeshBasicMaterial({
 var textureTorso = texloader.load('textures/mainCharacter/body.png');
 var torsoMat = new THREE.MeshBasicMaterial({
     map: textureTorso,
+
    
 })
+
 var textureSword = texloader.load('textures/mainCharacter/sword.jpg');
 var swordMat = new THREE.MeshBasicMaterial({
     map: textureSword,
@@ -78,9 +87,19 @@ new THREE.MeshBasicMaterial({
 
 //define geometry and materials
 
-const geometry = new THREE.BoxGeometry();
+const geometry = new THREE.BoxGeometry(1,1,1);
 
-const material = new THREE.MeshBasicMaterial( { color: 0xffffff } );
+
+
+
+
+
+const material = new THREE.MeshBasicMaterial( 
+    {color: 0xffffff ,
+        opacity: 0.7,
+        transparent: true,
+    
+    });
 const materialBlack = new THREE.MeshBasicMaterial( { color: 0x000000 } );
 
 
@@ -92,8 +111,15 @@ const materialBlack = new THREE.MeshBasicMaterial( { color: 0x000000 } );
 
 //torso
 const torso = new THREE.Mesh( geometry, torsoMat );
-torso.position.set(900, 0, 0) // cube is offset x = 5 from of its parent.
+torso.position.set(2000, 0, 0) // cube is offset x = 5 from of its parent.
 torso.scale.set(40, 70, 60);
+
+
+
+    
+
+
+//torsoBB = new THREE.Box3(minTorsoBB, maxTorsoBB).setFromObject(torso);*/
 //in the case of the platform as father, use the lines below
 //torso.position.set(0, 0, -85)
 //torso.scale.set(40, 70, 60);
@@ -249,6 +275,29 @@ rightLowerLeg.scale.set(1, 1, 1);
 rightUpperLeg.add(rightLowerLeg);
 
 
+//lights
+
+var lightp1 = new THREE.PointLight(0xffffff, 1)
+lightp1.position.set(0, 0, 0)
+
+p1.add(lightp1);
+var lightp2 = new THREE.PointLight(0xffffff, 1 )
+lightp2.position.set(0, 0, 0)
+//p2.add(lightp2);
+var lightp3 = new THREE.PointLight(0xffffff, 1 )
+lightp3.position.set(0, 0, 0)
+//p3.add(lightp3);
+var lightp4 = new THREE.PointLight(0xffffff, 1 )
+lightp4.position.set(0, 0, 0)
+//p4.add(lightp4);
+var lightp5 = new THREE.PointLight(0xffffff, 1 )
+lightp5.position.set(0, 0, 0)
+//p5.add(lightp5);
+var lightp6 = new THREE.PointLight(0xffffff, 1)
+lightp6.position.set(0, 0, 0)
+//p5.add(lightp6);
+
+
 
 
 
@@ -340,9 +389,11 @@ function removeSword(){
     leftLowerArm.remove(s1);
 }
 
-//written parts
-//--------------------------------------------------------
-//----------------------------------
+
+
+
+
+
 
 
 
@@ -392,12 +443,19 @@ if ( keyboard.pressed("J") ){
     
 }
 
+
+
+
+
+
+
 if(attack){
     if(sword){
     
     attackCount+= 0.1;
     if(attackCount < 2.1 ){
         leftUpperArm.rotation.z -= 0.11;
+        leftLowerArm.rotation.z -= 0.01;
         torso.translateX( -moveDistance );
         platform.translateX( 0.1);
         //head.rotation.y += 0.2;
@@ -407,6 +465,7 @@ if(attack){
     }
     if(attackCount >= 2.1 && attackCount < 4.1){
         leftUpperArm.rotation.z += 0.11;
+        leftLowerArm.rotation.z += 0.01;
         torso.translateX( moveDistance );
         platform.translateX( -0.1 );
         //head.rotation.y -= 0.2; 
@@ -425,8 +484,7 @@ if(attack){
     
 }
 
-
-
+   
 
 
 
@@ -458,6 +516,8 @@ if(attack){
     body.translateY( -0.03 );
     platform.translateZ(-0.002)
    //platform colors
+
+   
    p1.material = material;
    p2.material = platformMat;
    p3.material = platformMat;
@@ -496,6 +556,11 @@ if(attack){
     }else if(count > 10){
         count = 0;
     }
+
+
+
+
+
 }
    
     
