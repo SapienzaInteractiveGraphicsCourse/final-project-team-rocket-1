@@ -283,19 +283,19 @@ lightp1.position.set(0, 0, 0)
 p1.add(lightp1);
 var lightp2 = new THREE.PointLight(0xffffff, 1 )
 lightp2.position.set(0, 0, 0)
-//p2.add(lightp2);
+p2.add(lightp2);
 var lightp3 = new THREE.PointLight(0xffffff, 1 )
 lightp3.position.set(0, 0, 0)
-//p3.add(lightp3);
+p3.add(lightp3);
 var lightp4 = new THREE.PointLight(0xffffff, 1 )
 lightp4.position.set(0, 0, 0)
-//p4.add(lightp4);
+p4.add(lightp4);
 var lightp5 = new THREE.PointLight(0xffffff, 1 )
 lightp5.position.set(0, 0, 0)
-//p5.add(lightp5);
+p5.add(lightp5);
 var lightp6 = new THREE.PointLight(0xffffff, 1)
 lightp6.position.set(0, 0, 0)
-//p5.add(lightp6);
+p5.add(lightp6);
 
 
 
