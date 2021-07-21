@@ -301,7 +301,10 @@ lightp5.position.set(0, 0, 0)
 p5.add(lightp5);
 var lightp6 = new THREE.PointLight(0xffffff, 1, 10)
 lightp6.position.set(0, 0, 0)
-p5.add(lightp6);
+p6.add(lightp6);
+var lightp7 = new THREE.PointLight(0xffffff, 1, 10)
+lightp7.position.set(0, 0, 0)
+p6.add(lightp7);
 
 
 
