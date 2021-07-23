@@ -595,7 +595,7 @@ function render() {
     
 
 
-     
+     /*
         //explore planets-----------------------------------------------------------------------
         if ( keyboard.pressed("0") ) 
         torso.position.set(Planets[0].position.x, Planets[0].position.y-100, Planets[0].position.z + 1000)
@@ -622,7 +622,7 @@ function render() {
         torso.position.set(Planets[9].position.x, Planets[9].position.y + 10, Planets[9].position.z + 1000)
 
 
-
+*/
 
         // rotate left/right/up/down
         if ( keyboard.pressed("A") )

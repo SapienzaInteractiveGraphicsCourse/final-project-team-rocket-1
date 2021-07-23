@@ -23,6 +23,7 @@ var running = false;
 
 
 
+
 //textures--------------------------------------------------------------------------------
 var texloader = new THREE.TextureLoader();
 var textureArms = texloader.load('textures/mainCharacter/arms.png');
@@ -119,20 +120,10 @@ const materialBlack = new THREE.MeshBasicMaterial( { color: 0x000000 } );
 
 //torso
 const torso = new THREE.Mesh( geometry, torsoMat );
-torso.position.set(2000, 0, 0) // cube is offset x = 5 from of its parent.
+torso.position.set(2000, 0, 0) 
 torso.scale.set(40, 70, 60);
 
 torso.receiveShadow = true;
-
-    
-
-
-//torsoBB = new THREE.Box3(minTorsoBB, maxTorsoBB).setFromObject(torso);*/
-//in the case of the platform as father, use the lines below
-//torso.position.set(0, 0, -85)
-//torso.scale.set(40, 70, 60);
-//torso.rotation.x = -Math.PI/2
-//----------------
 scene.add(torso);
 
 
@@ -151,32 +142,32 @@ torso.add(platform);
 
 const sphere = new THREE.SphereGeometry( 0.7, 40, 20 );
 const p1 = new THREE.Mesh( geometry, platformMat);
-p1.position.set(0, 0, 0) // cube is offset x = 5 from of its parent.
+p1.position.set(0, 0, 0) 
 p1.scale.set(1, 1, 1);
 platform.add(p1);
 //little spheres
 const p2 = new THREE.Mesh( sphere, platformMat);
-p2.position.set(1, 2, 0) // cube is offset x = 5 from of its parent.
+p2.position.set(1, 2, 0) 
 p2.scale.set(0.2, 0.2, 0.2);
 platform.add(p2);
 const p3 = new THREE.Mesh( sphere, platformMat);
-p3.position.set(-1, 2, 0) // cube is offset x = 5 from of its parent.
+p3.position.set(-1, 2, 0) 
 p3.scale.set(0.2, 0.2, 0.2);
 platform.add(p3);
 const p4 = new THREE.Mesh( sphere, platformMat);
-p4.position.set(1, -2, 0) // cube is offset x = 5 from of its parent.
+p4.position.set(1, -2, 0) 
 p4.scale.set(0.2, 0.2, 0.2);
 platform.add(p4);
 const p5 = new THREE.Mesh( sphere, platformMat);
-p5.position.set(-1, -2, 0) // cube is offset x = 5 from of its parent.
+p5.position.set(-1, -2, 0) 
 p5.scale.set(0.2, 0.2, 0.2);
 platform.add(p5);
 const p6 = new THREE.Mesh( sphere, platformMat);
-p6.position.set(-1, 0, 0) // cube is offset x = 5 from of its parent.
+p6.position.set(-1, 0, 0) 
 p6.scale.set(0.2, 0.2, 0.2);
 platform.add(p6);
 const p7 = new THREE.Mesh( sphere, platformMat);
-p7.position.set(1, 0, 0) // cube is offset x = 5 from of its parent.
+p7.position.set(1, 0, 0) 
 p7.scale.set(0.2, 0.2, 0.2);
 platform.add(p7);
 
@@ -203,11 +194,11 @@ platform.add( c2);
 //head--------------------------------------------
 const head = new THREE.Mesh( geometry, headMat );
 
-//head.scale.set(1.6, 1.2, 1.4)
+
 head.scale.set(1, 0.8, 0.9)
 head.position.set(0, 1, 0)
 head.receiveShadow = true;
-torso.add(head);// add the cube to the scene. The scene becomes its parent Object3D.
+torso.add(head);
 
 
 //left shoulder
@@ -272,25 +263,25 @@ rightUpperArm.add(raj)
 
 //leftLowerArm
 const leftLowerArm = new THREE.Mesh( geometry, armsMat );
-leftLowerArm.position.set(0, -1.1, 0) //forward,up,-
+leftLowerArm.position.set(0, -1.1, 0) 
 leftLowerArm.scale.set(0.6, 3, 0.6);
 
 leftLowerArm.receiveShadow = true;
 
-laj.add(leftLowerArm); // add te cube to the scene. The scene becomes its parent Object3D.
+laj.add(leftLowerArm); 
 
 
 //rightLowerArm
 const rightLowerArm = new THREE.Mesh( geometry, armsMat );
-rightLowerArm.position.set(0, -1.1, 0) //forward,up,-
+rightLowerArm.position.set(0, -1.1, 0) 
 rightLowerArm.scale.set(0.6, 3, 0.6);
 
 rightLowerArm.receiveShadow = true;
-raj.add(rightLowerArm); // add te cube to the scene. The scene becomes its parent Object3D.
+raj.add(rightLowerArm);
 
 //leftUpperLeg-------------------------------------------------------------------------------------
 const leftUpperLeg = new THREE.Mesh( geometry, armsMat );
-leftUpperLeg.position.set(0, -0.60, 0.3) //forward,up,-
+leftUpperLeg.position.set(0, -0.60, 0.3) 
 leftUpperLeg.scale.set(0.3, 0.4, 0.2);
 
 
@@ -298,7 +289,7 @@ torso.add(leftUpperLeg);
 
 //rightUpperLeg-------------------------------------------------------------------------------------
 const rightUpperLeg = new THREE.Mesh( geometry, armsMat );
-rightUpperLeg.position.set(0, -0.60, -0.3) //forward,up,-
+rightUpperLeg.position.set(0, -0.60, -0.3) 
 rightUpperLeg.scale.set(0.3, 0.4, 0.2);
 
 rightUpperLeg.receiveShadow = true;
@@ -324,7 +315,7 @@ rightUpperLeg.add(rlj)
 
 //leftLowerLeg
 const leftLowerLeg = new THREE.Mesh( geometry, armsMat );
-leftLowerLeg.position.set(0, -1.4, 0.) //forward,up,-
+leftLowerLeg.position.set(0, -1.4, 0.) 
 leftLowerLeg.scale.set(0.8, 4, 0.8);
 
 leftLowerLeg.receiveShadow = true;
@@ -332,7 +323,7 @@ llj.add(leftLowerLeg);
 
 //rightLowerLeg
 const rightLowerLeg = new THREE.Mesh( geometry, armsMat );
-rightLowerLeg.position.set(0, -1.4, 0.) //forward,up,-
+rightLowerLeg.position.set(0, -1.4, 0.) 
 rightLowerLeg.scale.set(0.8, 4, 0.8);
 
 rightLowerLeg.receiveShadow = true;
@@ -368,6 +359,8 @@ p6.add(lightp7);
 
 
 
+
+
 //LITTLE ALIEN ----------------------------------------------------------------------------------
 //---------------------the body of the alien is torso's son-------------------------------------
 //---------------------in this way they move together---------------------------------
@@ -375,62 +368,77 @@ p6.add(lightp7);
 
 //setting texture
 var textureAlien = texloader.load('textures/mainCharacter/squidtex.jpg')
+var textureAlien2 = texloader.load('textures/mainCharacter/squidlegs.jpg')
 
 
 var alienMaterial = new THREE.MeshBasicMaterial({
     map: textureAlien,
+    emissive: 0xffffee,
+    emissiveIntensity: 30,
+    
+   
+})
+var alienMaterial2 = new THREE.MeshBasicMaterial({
+    map: textureAlien2,
+    emissive: 0xffffee,
+    emissiveIntensity: 30,
+    
    
 })
 //-----------------------------------------------------
 
 //BUILDING BODY AND 'LEGS'
 const body = new THREE.Mesh( geometry, alienMaterial );
-body.position.set(0, 3, 3.) //forward,up,-
+body.position.set(0, 3, 3.) 
 body.scale.set(1.5, 0.8, 1);
 
 body.receiveShadow = true;
 torso.add(body);
 
+var lightpet = new THREE.PointLight(0xffffff, 1)
+lightpet.position.set(0, 0, 0)
+
+body.add(lightpet);
 //-----------------------
-const l1 = new THREE.Mesh( geometry, alienMaterial );
-l1.position.set(0.35, -0.70, -0.5) //forward,up,-
+const l1 = new THREE.Mesh( geometry, alienMaterial2 );
+l1.position.set(0.35, -0.70, -0.5) 
 l1.scale.set(0.2, 0.8, 0.1);
 l1.rotation.x += 0.32;
 l1.receiveShadow = true;
 body.add(l1);
 //---------------------
-const l2 = new THREE.Mesh( geometry, alienMaterial);
-l2.position.set(0.35, -0.70, 0.5) //forward,up,-
+const l2 = new THREE.Mesh( geometry, alienMaterial2);
+l2.position.set(0.35, -0.70, 0.5) 
 l2.scale.set(0.2, 0.8, 0.1);
 l2.rotation.x -= 0.32;
 l2.receiveShadow = true;
 body.add(l2);
 //--------------------------
-const l3 = new THREE.Mesh( geometry, alienMaterial );
-l3.position.set(-0.35, -0.70, -0.5) //forward,up,-
+const l3 = new THREE.Mesh( geometry, alienMaterial2 );
+l3.position.set(-0.35, -0.70, -0.5) 
 l3.scale.set(0.2, 0.8, 0.1);
 l3.rotation.x += 0.32;
 l3.receiveShadow = true;
 body.add(l3);
 
 //-------------------------------------
-const l4 = new THREE.Mesh( geometry, alienMaterial );
-l4.position.set(-0.35, -0.70, +0.5) //forward,up,-
+const l4 = new THREE.Mesh( geometry, alienMaterial2 );
+l4.position.set(-0.35, -0.70, +0.5) 
 l4.scale.set(0.2, 0.8, 0.1);
 l4.rotation.x -= 0.32;
 l4.receiveShadow = true;
 body.add(l4);
 
 //-------------------------------------
-const l5 = new THREE.Mesh( geometry, alienMaterial );
-l5.position.set(-0.35, -0.70, 0) //forward,up,-
+const l5 = new THREE.Mesh( geometry, alienMaterial2);
+l5.position.set(-0.35, -0.70, 0) 
 l5.scale.set(0.2, 0.8, 0.1);
 l5.rotation.y -= 0.32;
 l5.receiveShadow = true;
 body.add(l5);
 //-------------------------------
-const l6 = new THREE.Mesh( geometry, alienMaterial);
-l6.position.set(0.35, -0.70, 0) //forward,up,-
+const l6 = new THREE.Mesh( geometry, alienMaterial2);
+l6.position.set(0.35, -0.70, 0) 
 l6.scale.set(0.2, 0.8, 0.1);
 l6.rotation.y -= 0.32;
 l6.receiveShadow = true;
@@ -444,7 +452,7 @@ body.add(l6);
 
 
 const s1 = new THREE.Mesh( geometry, swordMat);
-s1.position.set(0, -1.6, 0) //forward,up,-
+s1.position.set(0, -1.6, 0) 
 s1.scale.set(1, 2.6, 1);
 
 
@@ -477,6 +485,10 @@ var attackCount = 0;
 const animate = function () {
 
     requestAnimationFrame( animate );
+
+
+
+   
  
     //transitions between running and walking
     
@@ -626,7 +638,7 @@ if(running && !walking){
        
        //------------
         body.rotation.x += 0.001; 
-       // torso.rotation.z -= 0.005;
+       
         torso.translateY( -0.3 );
         body.translateY( 0.03 );
         platform.translateZ(0.002)
@@ -721,7 +733,7 @@ if(running && !walking){
        
        //------------
         body.rotation.x += 0.001; 
-       // torso.rotation.z -= 0.005;
+       
         torso.translateY( -0.3 );
         body.translateY( 0.03 );
         platform.translateZ(0.002)
@@ -812,7 +824,7 @@ if(attack){
         
         torso.translateX( -moveDistance );
         platform.translateX( 0.1);
-        //head.rotation.y += 0.2;
+        
         leftUpperLeg.rotation.z += 0.02;
         rlj.rotation.z += 0.02;
         llj.rotation.z += 0.02;
@@ -824,7 +836,7 @@ if(attack){
         
         torso.translateX( moveDistance );
         platform.translateX( -0.1 );
-        //head.rotation.y -= 0.2; 
+        
         leftUpperLeg.rotation.z -= 0.02;
         rlj.rotation.z -= 0.02;
         llj.rotation.z -= 0.02;
