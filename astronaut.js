@@ -6,6 +6,8 @@
 //G--> extract sword
 //H--> sheathe sword
 //J-->sword attack
+//X--> run
+//Z--> back to walking
 
 
 
@@ -17,6 +19,7 @@ var walking = true;
 var sword = false;
 var attack = false;
 var lights = true;
+var running = false;
 
 
 
@@ -279,7 +282,7 @@ laj.add(leftLowerArm); // add te cube to the scene. The scene becomes its parent
 
 //rightLowerArm
 const rightLowerArm = new THREE.Mesh( geometry, armsMat );
-rightLowerArm.position.set(0, -0.75, 0) //forward,up,-
+rightLowerArm.position.set(0, -1.1, 0) //forward,up,-
 rightLowerArm.scale.set(0.6, 3, 0.6);
 
 rightLowerArm.receiveShadow = true;
@@ -287,7 +290,7 @@ raj.add(rightLowerArm); // add te cube to the scene. The scene becomes its paren
 
 //leftUpperLeg-------------------------------------------------------------------------------------
 const leftUpperLeg = new THREE.Mesh( geometry, armsMat );
-leftUpperLeg.position.set(0, -0.70, 0.3) //forward,up,-
+leftUpperLeg.position.set(0, -0.60, 0.3) //forward,up,-
 leftUpperLeg.scale.set(0.3, 0.4, 0.2);
 
 
@@ -295,7 +298,7 @@ torso.add(leftUpperLeg);
 
 //rightUpperLeg-------------------------------------------------------------------------------------
 const rightUpperLeg = new THREE.Mesh( geometry, armsMat );
-rightUpperLeg.position.set(0, -0.70, -0.3) //forward,up,-
+rightUpperLeg.position.set(0, -0.60, -0.3) //forward,up,-
 rightUpperLeg.scale.set(0.3, 0.4, 0.2);
 
 rightUpperLeg.receiveShadow = true;
@@ -321,16 +324,16 @@ rightUpperLeg.add(rlj)
 
 //leftLowerLeg
 const leftLowerLeg = new THREE.Mesh( geometry, armsMat );
-leftLowerLeg.position.set(0, -0.75, 0.) //forward,up,-
-leftLowerLeg.scale.set(1, 4, 1);
+leftLowerLeg.position.set(0, -1.4, 0.) //forward,up,-
+leftLowerLeg.scale.set(0.8, 4, 0.8);
 
 leftLowerLeg.receiveShadow = true;
 llj.add(leftLowerLeg);
 
 //rightLowerLeg
 const rightLowerLeg = new THREE.Mesh( geometry, armsMat );
-rightLowerLeg.position.set(0, -0.75, 0.) //forward,up,-
-rightLowerLeg.scale.set(1, 4, 1);
+rightLowerLeg.position.set(0, -1.4, 0.) //forward,up,-
+rightLowerLeg.scale.set(0.8, 4, 0.8);
 
 rightLowerLeg.receiveShadow = true;
 rlj.add(rightLowerLeg);
@@ -469,16 +472,189 @@ function removeSword(){
 
 //small animations 
 var count = 0;
+var runCount = 0;
 var attackCount = 0;
 const animate = function () {
 
     requestAnimationFrame( animate );
+ 
+    //transitions between running and walking
+    
+    if ( keyboard.pressed("X") ){
+        if(sword){
+            removeSword();
+            sword = false;
+
+        }
+        
+        walking = false;
+        running = true;
+        leftUpperArm.rotation.x = 0;
+       rightUpperArm.rotation.x = 0;
+       
+       
+
+        
+        
+        
+    }
+
+    if ( keyboard.pressed("Z") ){
+        if(!walking){
+        
+        
+        running = false;
+        leftShoulder.rotation.z =0;
+       leftLowerArm.rotation.z =0;
+       
+       rightShoulder.rotation.z =0;
+       rightLowerArm.rotation.z =0;
+       
+       
 
     
+      
+        llj.rotation.z =0;
+        
+      
+       
+
+        rlj.rotation.z =0;
+        rightUpperLeg.rotation.z =0;
 
 
 
 
+        leftUpperArm.rotation.x = -0.32;
+       rightUpperArm.rotation.x = +0.32;
+       leftUpperArm.rotation.y= 0;
+       rightUpperArm.rotation.y = 0;
+
+       rightLowerArm.position.set(0, -1.1, 0)
+       leftLowerArm.position.set(0, -1.1, 0)
+
+
+       walking=true;
+
+        }
+        
+       
+       
+
+        
+        
+        
+    }
+
+
+
+if(running && !walking){
+
+    
+    
+    runCount+=0.1;
+
+
+ 
+    
+    if(runCount <= 5){
+
+
+       leftShoulder.rotation.z -= 0.02;
+       leftLowerArm.rotation.z -= 0.01;
+       leftLowerArm.translateX(-0.01)
+       rightShoulder.rotation.z += 0.02;
+       rightLowerArm.rotation.z -= 0.01;
+       rightLowerArm.translateX(-0.01)
+
+
+      
+        llj.rotation.z += 0.02;
+        
+      
+       
+
+        rlj.rotation.z += 0.02;
+        rightUpperLeg.rotation.z -= 0.02;
+    
+    //-----------
+         body.rotation.x -= 0.001; 
+    //------
+        l1.rotation.x += 0.005;
+        l2.rotation.x -= 0.005;
+        l3.rotation.x += 0.005;
+        l4.rotation.x -= 0.005;
+        l5.rotation.z -= 0.005;
+        l6.rotation.z += 0.005;
+    //translation
+        torso.translateY( 0.3 );
+        body.translateY( -0.03 );
+        platform.translateZ(-0.002)
+   //platform colors
+
+   
+        p1.material = material;
+        p2.material = platformMat;
+        p3.material = platformMat;
+        p4.material = platformMat;
+        p5.material = platformMat;
+        p6.material = material;
+        p7.material = material;
+
+
+
+
+    }else if(runCount > 5 && runCount <= 10){
+        leftShoulder.rotation.z += 0.02;
+        leftLowerArm.rotation.z += 0.01;
+        leftLowerArm.translateX(+0.01)
+        rightShoulder.rotation.z -= 0.02
+        rightLowerArm.rotation.z+= 0.01;
+        rightLowerArm.translateX(+0.01)
+        
+
+        llj.rotation.z -= 0.02;
+
+        rlj.rotation.z -= 0.02;
+        rightUpperLeg.rotation.z += 0.02;
+
+       
+        
+
+
+       //------------
+        body.rotation.x += 0.001; 
+       // torso.rotation.z -= 0.005;
+        torso.translateY( -0.3 );
+        body.translateY( 0.03 );
+        platform.translateZ(0.002)
+     //---------------------
+        l1.rotation.x -= 0.005;
+        l2.rotation.x += 0.005;
+        l3.rotation.x -= 0.005;
+        l4.rotation.x += 0.005;
+        l5.rotation.z += 0.005;
+        l6.rotation.z -= 0.005;
+        //colors
+        p1.material = platformMat;
+        p2.material = material;
+        p3.material = material;
+        p4.material = material;
+        p5.material = material;
+        p6.material = platformMat;
+        p7.material = platformMat;
+        
+    }else if(runCount > 10){
+        runCount = 0;
+    }
+
+
+
+
+
+
+
+}
 
 
 
@@ -486,7 +662,7 @@ const animate = function () {
 
 //sword animations
 if ( keyboard.pressed("G") ){
-    if(!sword){
+    if(!sword && !running){
        
         createSword();
         sword = true;
