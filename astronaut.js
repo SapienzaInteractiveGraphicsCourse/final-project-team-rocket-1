@@ -514,7 +514,7 @@ const animate = function () {
        rightLowerArm.rotation.z =0;
        
        
-
+       body.position.set(0, 3, 3.)
     
       
         llj.rotation.z =0;
