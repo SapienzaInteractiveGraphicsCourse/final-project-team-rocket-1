@@ -150,7 +150,7 @@ platform.receiveShadow = true;
 torso.add(platform);
 
 const sphere = new THREE.SphereGeometry( 0.7, 40, 20 );
-const p1 = new THREE.Mesh( sphere, platformMat);
+const p1 = new THREE.Mesh( geometry, platformMat);
 p1.position.set(0, 0, 0) // cube is offset x = 5 from of its parent.
 p1.scale.set(1, 1, 1);
 platform.add(p1);
@@ -503,7 +503,9 @@ const animate = function () {
         if(!walking){
         
         
+        
         running = false;
+        runCount=0;
         leftShoulder.rotation.z =0;
        leftLowerArm.rotation.z =0;
        
@@ -552,31 +554,31 @@ if(running && !walking){
 
     
     
-    runCount+=0.1;
+    runCount+=0.25;
 
-
+    
  
     
     if(runCount <= 5){
 
 
-       leftShoulder.rotation.z -= 0.02;
-       leftLowerArm.rotation.z -= 0.01;
-       leftLowerArm.translateX(-0.01)
-       rightShoulder.rotation.z += 0.02;
-       rightLowerArm.rotation.z -= 0.01;
-       rightLowerArm.translateX(-0.01)
+       leftShoulder.rotation.z -= 0.04;
+       leftLowerArm.rotation.z -= 0.02;
+       leftLowerArm.translateX(-0.02)
+       rightShoulder.rotation.z += 0.04;
+       rightLowerArm.rotation.z -= 0.02;
+       rightLowerArm.translateX(-0.02)
 
 
       
-        llj.rotation.z += 0.02;
+        llj.rotation.z += 0.04;
         
       
        
 
-        rlj.rotation.z += 0.02;
-        rightUpperLeg.rotation.z -= 0.02;
-    
+        rlj.rotation.z += 0.04;
+        rightUpperLeg.rotation.z -= 0.04;
+        
     //-----------
          body.rotation.x -= 0.001; 
     //------
@@ -587,7 +589,7 @@ if(running && !walking){
         l5.rotation.z -= 0.005;
         l6.rotation.z += 0.005;
     //translation
-        torso.translateY( 0.3 );
+        torso.translateY( 0.3);
         body.translateY( -0.03 );
         platform.translateZ(-0.002)
    //platform colors
@@ -605,23 +607,118 @@ if(running && !walking){
 
 
     }else if(runCount > 5 && runCount <= 10){
-        leftShoulder.rotation.z += 0.02;
-        leftLowerArm.rotation.z += 0.01;
-        leftLowerArm.translateX(+0.01)
-        rightShoulder.rotation.z -= 0.02
-        rightLowerArm.rotation.z+= 0.01;
-        rightLowerArm.translateX(+0.01)
+        leftShoulder.rotation.z += 0.04;
+        leftLowerArm.rotation.z += 0.02;
+        leftLowerArm.translateX(+0.02)
+        rightShoulder.rotation.z -= 0.04
+        rightLowerArm.rotation.z+= 0.02;
+        rightLowerArm.translateX(+0.02)
         
 
-        llj.rotation.z -= 0.02;
+        llj.rotation.z -= 0.04;
 
-        rlj.rotation.z -= 0.02;
-        rightUpperLeg.rotation.z += 0.02;
+        rlj.rotation.z -= 0.04;
+        rightUpperLeg.rotation.z += 0.04;
 
        
         
 
+       
+       //------------
+        body.rotation.x += 0.001; 
+       // torso.rotation.z -= 0.005;
+        torso.translateY( -0.3 );
+        body.translateY( 0.03 );
+        platform.translateZ(0.002)
+     //---------------------
+        l1.rotation.x -= 0.005;
+        l2.rotation.x += 0.005;
+        l3.rotation.x -= 0.005;
+        l4.rotation.x += 0.005;
+        l5.rotation.z += 0.005;
+        l6.rotation.z -= 0.005;
+        //colors
+        p1.material = platformMat;
+        p2.material = material;
+        p3.material = material;
+        p4.material = material;
+        p5.material = material;
+        p6.material = platformMat;
+        p7.material = platformMat;
 
+    
+       
+        
+    }else if(runCount > 10 && runCount <= 15){
+
+
+
+
+       rightShoulder.rotation.z -= 0.04;
+       rightLowerArm.rotation.z -= 0.02;
+       rightLowerArm.translateX(-0.02)
+       leftShoulder.rotation.z += 0.04;
+       leftLowerArm.rotation.z -= 0.02;
+       leftLowerArm.translateX(-0.02)
+
+
+      
+        rlj.rotation.z += 0.04;
+        
+      
+       
+
+        llj.rotation.z += 0.04;
+        leftUpperLeg.rotation.z -= 0.04;
+        
+    //-----------
+         body.rotation.x -= 0.001; 
+    //------
+        l1.rotation.x += 0.005;
+        l2.rotation.x -= 0.005;
+        l3.rotation.x += 0.005;
+        l4.rotation.x -= 0.005;
+        l5.rotation.z -= 0.005;
+        l6.rotation.z += 0.005;
+    //translation
+        torso.translateY( 0.3);
+        body.translateY( -0.03 );
+        platform.translateZ(-0.002)
+   //platform colors
+
+   
+        p1.material = material;
+        p2.material = platformMat;
+        p3.material = platformMat;
+        p4.material = platformMat;
+        p5.material = platformMat;
+        p6.material = material;
+        p7.material = material;
+
+
+
+
+
+    }else if(runCount > 15 && runCount <= 20){
+
+
+        rightShoulder.rotation.z += 0.04;
+        rightLowerArm.rotation.z += 0.02;
+        rightLowerArm.translateX(+0.02)
+        leftShoulder.rotation.z -= 0.04
+        leftLowerArm.rotation.z+= 0.02;
+        leftLowerArm.translateX(+0.02)
+        
+
+        rlj.rotation.z -= 0.04;
+
+        llj.rotation.z -= 0.04;
+        leftUpperLeg.rotation.z += 0.04;
+
+       
+        
+
+       
        //------------
         body.rotation.x += 0.001; 
        // torso.rotation.z -= 0.005;
@@ -644,8 +741,18 @@ if(running && !walking){
         p6.material = platformMat;
         p7.material = platformMat;
         
-    }else if(runCount > 10){
+
+
+    }
+    
+    
+    
+    
+    else if(runCount > 20){
         runCount = 0;
+        leftLowerArm.position.set(0, -1.1, 0)
+        rightLowerArm.position.set(0, -1.1, 0)
+        
     }
 
 
