@@ -20,7 +20,7 @@ var sword = false;
 var attack = false;
 var lights = true;
 var running = false;
-var info = false;
+var info = true;
 
 
 
