@@ -507,9 +507,10 @@ const animate = function () {
         running = false;
         runCount=0;
         leftShoulder.rotation.z =0;
+        rightShoulder.rotation.z =0;
+
+
        leftLowerArm.rotation.z =0;
-       
-       rightShoulder.rotation.z =0;
        rightLowerArm.rotation.z =0;
        
        
@@ -517,12 +518,11 @@ const animate = function () {
     
       
         llj.rotation.z =0;
-        
-      
-       
-
         rlj.rotation.z =0;
+
+
         rightUpperLeg.rotation.z =0;
+        leftUpperLeg.rotation.z =0;
 
 
 
