@@ -142,7 +142,7 @@ var recmaterial = new THREE.MeshPhongMaterial({
 
 var platform = new THREE.Mesh(rectangle,platformMat2)
 platform.rotation.x = Math.PI/2
-platform.position.set(0, -1.9, 0)
+platform.position.set(0, -2.1, 0)
 platform.receiveShadow = true;
 torso.add(platform);
 
@@ -200,52 +200,90 @@ platform.add( c2);
 //head--------------------------------------------
 const head = new THREE.Mesh( geometry, headMat );
 
-head.scale.set(1.6, 1.2, 1.4);
+//head.scale.set(1.6, 1.2, 1.4)
+head.scale.set(1, 0.8, 0.9)
 head.position.set(0, 1, 0)
 head.receiveShadow = true;
 torso.add(head);// add the cube to the scene. The scene becomes its parent Object3D.
 
 
+//left shoulder
+const leftShoulder = new THREE.Mesh( sphere, armsMat);
+leftShoulder.scale.set(0.25, 0.25, 0.25)
+leftShoulder.position.set(0, 0.4, 0.5)
+torso.add(leftShoulder)
+
+
+//right shoulder
+const rightShoulder = new THREE.Mesh( sphere, armsMat);
+rightShoulder.scale.set(0.25, 0.25, 0.25)
+rightShoulder.position.set(0, 0.4, -0.5)
+torso.add(rightShoulder)
+
 //leftUpperArm--------------------------------------------------------------------------
 
 const leftUpperArm = new THREE.Mesh( geometry, armsMat );
-leftUpperArm.position.set(0, 0.2, 0.57) //forward,up,-
-leftUpperArm.scale.set(0.3, 0.5, 0.1);
+leftUpperArm.position.set(0, -0.7, 0.55) 
+
+leftUpperArm.scale.set(0.6, 2., 0.6);
 leftUpperArm.rotation.x -= 0.32;
 leftUpperArm.receiveShadow = true;
-torso.add(leftUpperArm); // add the cube to the scene. The scene becomes its parent Object3D.
+leftShoulder.add(leftUpperArm);
+
+
+
+
+
 
 
 //rightUpperArm
 
 const rightUpperArm = new THREE.Mesh( geometry, armsMat );
-rightUpperArm.position.set(0, 0.2, -0.57) //forward,up,left
-rightUpperArm.scale.set(0.3, 0.5, 0.1);
+rightUpperArm.position.set(0, -0.7, -0.55) 
 
+rightUpperArm.scale.set(0.6, 2., 0.6);
 rightUpperArm.rotation.x += 0.32;
 rightUpperArm.receiveShadow = true;
-torso.add(rightUpperArm); // add the cube to the scene. The scene becomes its parent Object3D.
+rightShoulder.add(rightUpperArm);
+
+
+
+//left arm joint
+const laj = new THREE.Mesh( sphere, armsMat);
+laj.scale.set(1.5, 0.3, 1.5)
+
+laj.position.set(0, -0.4, 0)
+
+leftUpperArm.add(laj)
+
+
+//right arm joint
+const raj = new THREE.Mesh( sphere, armsMat);
+raj.scale.set(1.5, 0.3, 1.5)
+raj.position.set(0, -0.4, 0)
+rightUpperArm.add(raj)
+
 
 
 
 
 //leftLowerArm
 const leftLowerArm = new THREE.Mesh( geometry, armsMat );
-leftLowerArm.position.set(0, -0.75, 0) //forward,up,-
-leftLowerArm.scale.set(1, 0.5, 1);
+leftLowerArm.position.set(0, -1.1, 0) //forward,up,-
+leftLowerArm.scale.set(0.6, 3, 0.6);
 
 leftLowerArm.receiveShadow = true;
 
-leftUpperArm.add(leftLowerArm); // add te cube to the scene. The scene becomes its parent Object3D.
+laj.add(leftLowerArm); // add te cube to the scene. The scene becomes its parent Object3D.
 
 
 //rightLowerArm
 const rightLowerArm = new THREE.Mesh( geometry, armsMat );
 rightLowerArm.position.set(0, -0.75, 0) //forward,up,-
-rightLowerArm.scale.set(1, 0.5, 1);
+rightLowerArm.scale.set(0.6, 3, 0.6);
 
 rightLowerArm.receiveShadow = true;
-rightUpperArm.add(rightLowerArm); // add te cube to the scene. The scene becomes its parent Object3D.
+raj.add(rightLowerArm); // add te cube to the scene. The scene becomes its parent Object3D.
 
 //leftUpperLeg-------------------------------------------------------------------------------------
 const leftUpperLeg = new THREE.Mesh( geometry, armsMat );
@@ -264,21 +302,38 @@ rightUpperLeg.receiveShadow = true;
 torso.add(rightUpperLeg);
 
 
+
+//left leg joint
+
+const llj = new THREE.Mesh( sphere, armsMat);
+llj.scale.set(1., 0.4, 1.)
+llj.position.set(0, -0.4, 0)
+leftUpperLeg.add(llj)
+
+
+
+//right leg joint
+const rlj = new THREE.Mesh( sphere, armsMat);
+rlj.scale.set(1., 0.4, 1.)
+rlj.position.set(0, -0.4, 0)
+rightUpperLeg.add(rlj)
+
+
 //leftLowerLeg
 const leftLowerLeg = new THREE.Mesh( geometry, armsMat );
 leftLowerLeg.position.set(0, -0.75, 0.) //forward,up,-
-leftLowerLeg.scale.set(1, 1, 1);
+leftLowerLeg.scale.set(1, 4, 1);
 
 leftLowerLeg.receiveShadow = true;
-leftUpperLeg.add(leftLowerLeg);
+llj.add(leftLowerLeg);
 
 //rightLowerLeg
 const rightLowerLeg = new THREE.Mesh( geometry, armsMat );
 rightLowerLeg.position.set(0, -0.75, 0.) //forward,up,-
-rightLowerLeg.scale.set(1, 1, 1);
+rightLowerLeg.scale.set(1, 4, 1);
 
 rightLowerLeg.receiveShadow = true;
-rightUpperLeg.add(rightLowerLeg);
+rlj.add(rightLowerLeg);
 
 
 //lights
@@ -386,8 +441,8 @@ body.add(l6);
 
 
 const s1 = new THREE.Mesh( geometry, swordMat);
-s1.position.set(0, -2.6, 0) //forward,up,-
-s1.scale.set(1, 4, 1);
+s1.position.set(0, -1.6, 0) //forward,up,-
+s1.scale.set(1, 2.6, 1);
 
 
 
@@ -468,22 +523,28 @@ if(attack){
     
     attackCount+= 0.1;
     if(attackCount < 2.1 ){
-        leftUpperArm.rotation.z -= 0.11;
-        leftLowerArm.rotation.z -= 0.01;
+        leftShoulder.rotation.z -= 0.09;
+        
+        
+        
         torso.translateX( -moveDistance );
         platform.translateX( 0.1);
         //head.rotation.y += 0.2;
         leftUpperLeg.rotation.z += 0.02;
+        rlj.rotation.z += 0.02;
+        llj.rotation.z += 0.02;
         rightUpperLeg.rotation.z -= 0.02;
 
     }
     if(attackCount >= 2.1 && attackCount < 4.1){
-        leftUpperArm.rotation.z += 0.11;
-        leftLowerArm.rotation.z += 0.01;
+        leftShoulder.rotation.z += 0.09;
+        
         torso.translateX( moveDistance );
         platform.translateX( -0.1 );
         //head.rotation.y -= 0.2; 
         leftUpperLeg.rotation.z -= 0.02;
+        rlj.rotation.z -= 0.02;
+        llj.rotation.z -= 0.02;
         rightUpperLeg.rotation.z += 0.02;
     }
     if(attackCount >= 4.1){
