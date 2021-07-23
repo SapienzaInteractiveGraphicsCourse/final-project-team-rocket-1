@@ -20,6 +20,9 @@ var sword = false;
 var attack = false;
 var lights = true;
 var running = false;
+var info = false;
+
+
 
 
 
@@ -55,6 +58,9 @@ var torsoMat = new THREE.MeshBasicMaterial({
 
 var textureSword = texloader.load('textures/mainCharacter/sword.jpg');
 var swordMat = new THREE.MeshBasicMaterial({
+    emissive: 0xffffee,
+    emissiveIntensity: 10,
+    roughness: 1,
     map: textureSword,
    
 })
@@ -381,7 +387,7 @@ var alienMaterial = new THREE.MeshBasicMaterial({
 var alienMaterial2 = new THREE.MeshBasicMaterial({
     map: textureAlien2,
     emissive: 0xffffee,
-    emissiveIntensity: 30,
+    emissiveIntensity: 40,
     
    
 })
@@ -402,21 +408,21 @@ body.add(lightpet);
 //-----------------------
 const l1 = new THREE.Mesh( geometry, alienMaterial2 );
 l1.position.set(0.35, -0.70, -0.5) 
-l1.scale.set(0.2, 0.8, 0.1);
+l1.scale.set(0.2, 2, 0.1);
 l1.rotation.x += 0.32;
 l1.receiveShadow = true;
 body.add(l1);
 //---------------------
 const l2 = new THREE.Mesh( geometry, alienMaterial2);
 l2.position.set(0.35, -0.70, 0.5) 
-l2.scale.set(0.2, 0.8, 0.1);
+l2.scale.set(0.2, 2, 0.1);
 l2.rotation.x -= 0.32;
 l2.receiveShadow = true;
 body.add(l2);
 //--------------------------
 const l3 = new THREE.Mesh( geometry, alienMaterial2 );
 l3.position.set(-0.35, -0.70, -0.5) 
-l3.scale.set(0.2, 0.8, 0.1);
+l3.scale.set(0.2, 2, 0.1);
 l3.rotation.x += 0.32;
 l3.receiveShadow = true;
 body.add(l3);
@@ -424,7 +430,7 @@ body.add(l3);
 //-------------------------------------
 const l4 = new THREE.Mesh( geometry, alienMaterial2 );
 l4.position.set(-0.35, -0.70, +0.5) 
-l4.scale.set(0.2, 0.8, 0.1);
+l4.scale.set(0.2, 2, 0.1);
 l4.rotation.x -= 0.32;
 l4.receiveShadow = true;
 body.add(l4);
@@ -432,14 +438,14 @@ body.add(l4);
 //-------------------------------------
 const l5 = new THREE.Mesh( geometry, alienMaterial2);
 l5.position.set(-0.35, -0.70, 0) 
-l5.scale.set(0.2, 0.8, 0.1);
+l5.scale.set(0.2, 2, 0.1);
 l5.rotation.y -= 0.32;
 l5.receiveShadow = true;
 body.add(l5);
 //-------------------------------
 const l6 = new THREE.Mesh( geometry, alienMaterial2);
 l6.position.set(0.35, -0.70, 0) 
-l6.scale.set(0.2, 0.8, 0.1);
+l6.scale.set(0.2, 2, 0.1);
 l6.rotation.y -= 0.32;
 l6.receiveShadow = true;
 body.add(l6);
@@ -485,9 +491,22 @@ var attackCount = 0;
 const animate = function () {
 
     requestAnimationFrame( animate );
+  if(keyboard.pressed('I')){
+      info = true;
+  }
+  if(keyboard.pressed('O')){
+    info = false;
+}
 
-
-
+   
+   if(!info){
+    var element = document.getElementById('overlay');
+    element.style.opacity = "0";
+   }
+   if(info){
+    var element = document.getElementById('overlay');
+    element.style.opacity = "1";
+   }
    
  
     //transitions between running and walking
