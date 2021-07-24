@@ -510,7 +510,7 @@ const animate = function () {
             sword = false;
 
         }
-        torso.position.set(2000, 0, 0) 
+        platform.position.set(0, -2.1, 0)
         body.position.set(0, 3, 3.)
         body.rotation.x = 0; 
        //------
@@ -543,7 +543,7 @@ const animate = function () {
         
         
         running = false;
-        torso.position.set(2000, 0, 0) 
+        platform.position.set(0, -2.1, 0)
         runCount=0;
         leftShoulder.rotation.z =0;
         rightShoulder.rotation.z =0;
