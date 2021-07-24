@@ -1,13 +1,6 @@
 //Astronaut and pet 
 
 
-//------------------------------------
-//WASD --> move
-//G--> extract sword
-//H--> sheathe sword
-//J-->sword attack
-//X--> run
-//Z--> back to walking
 
 
 
@@ -517,12 +510,26 @@ const animate = function () {
             sword = false;
 
         }
-        
+        torso.position.set(2000, 0, 0) 
+        body.position.set(0, 3, 3.)
+        body.rotation.x = 0; 
+       //------
+           l1.rotation.x = 0.32;
+           l2.rotation.x = -0.32;
+           l3.rotation.x = 0.32;;
+           l4.rotation.x = -0.32;
+           l5.rotation.y = -0.32;
+           l6.rotation.y = -0.32;
+           //l6.rotation.z = 0;
+           l5.rotation.z = 0;
+
+
+
         walking = false;
-        running = true;
+        
         leftUpperArm.rotation.x = 0;
        rightUpperArm.rotation.x = 0;
-       
+       running = true;
        
 
         
@@ -536,6 +543,7 @@ const animate = function () {
         
         
         running = false;
+        torso.position.set(2000, 0, 0) 
         runCount=0;
         leftShoulder.rotation.z =0;
         rightShoulder.rotation.z =0;
@@ -554,6 +562,7 @@ const animate = function () {
 
         rightUpperLeg.rotation.z =0;
         leftUpperLeg.rotation.z =0;
+        
 
 
 
@@ -565,6 +574,19 @@ const animate = function () {
 
        rightLowerArm.position.set(0, -1.1, 0)
        leftLowerArm.position.set(0, -1.1, 0)
+
+
+
+       body.rotation.x = 0; 
+       //------
+           l1.rotation.x = 0.32;
+           l2.rotation.x = -0.32;
+           l3.rotation.x = 0.32;;
+           l4.rotation.x = -0.32;
+           l5.rotation.y = -0.32;
+           l6.rotation.y = -0.32;
+          // l6.rotation.z = 0;
+           l5.rotation.z = 0;
 
 
        walking=true;
