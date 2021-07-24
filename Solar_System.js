@@ -78,12 +78,10 @@ renderer.setSize( innerWidth, innerHeight )
 document.body.appendChild( renderer.domElement )
 
 // setup lights
-
-
-var light = new THREE.PointLight(0xffffff, 1)
+var light = new THREE.PointLight(0x111111, 1)
 light.position.set(0, 0, 0)
 scene.add(light)
-scene.add(new THREE.AmbientLight(0x333333))
+scene.add(new THREE.AmbientLight(0x111111))
 
 /* --------------------------------------------------------------------------------------- */
 
@@ -218,7 +216,7 @@ function render() {
         }
     } else {
 
-        var PlanetsR = [10,0,0,0,0,0,0,0,0] // radius of simplified orbits
+        var PlanetsR = [1,5,10,20,30,40,50,60,70,80] // radius of simplified orbits
         
         // planets simplified position to make
         
@@ -234,9 +232,13 @@ function render() {
             
             Planets[i].position.x = PlanetsR[i] * Math.cos(theta);
             Planets[i].position.y = PlanetsR[i] * Math.sin(theta);
+            Planets[i].position.z = Planets[0].position.z
+            Planets[i].rotation.y += 0.05
         }
         Planets[9].position.x = 50 * Math.cos(theta);
         Planets[9].position.y = 50 * Math.sin(theta);
+        Planets[9].position.z = 50 * Math.sin(theta);
+        console.log(Planets[2].position)
     }
 
     // rotate the Sun
