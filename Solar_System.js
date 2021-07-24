@@ -55,6 +55,9 @@ var currTimeD = startD;
 
 var auScale = 149597.870700; // AU in thousands of kilometers
 
+var theta = 0
+var dtheta = 2*Math.PI/1000
+
 // set up the scene and camera
 const scene = new THREE.Scene()
 const camera = new THREE.PerspectiveCamera(45, window.innerWidth/window.innerHeight, 0.1, 2000000000000)
@@ -214,9 +217,26 @@ function render() {
 
         }
     } else {
-        oldTimeD = currTimeD;
-        currTimeD = currTimeD + daysPerFrame;
-        var deltaTimeD = currTimeD - oldTimeD;
+
+        var PlanetsR = [10,0,0,0,0,0,0,0,0] // radius of simplified orbits
+        
+        // planets simplified position to make
+        
+        // maybe scale the planets if too big
+
+        oldTimeD = currTimeD
+        currTimeD = currTimeD + daysPerFrame
+        var deltaTimeD = currTimeD - oldTimeD
+
+        theta += dtheta
+
+        for(var i = 1; i < PlanetsData.length-1; i++){
+            
+            Planets[i].position.x = PlanetsR[i] * Math.cos(theta);
+            Planets[i].position.y = PlanetsR[i] * Math.sin(theta);
+        }
+        Planets[9].position.x = 50 * Math.cos(theta);
+        Planets[9].position.y = 50 * Math.sin(theta);
     }
 
     // rotate the Sun
