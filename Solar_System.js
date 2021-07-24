@@ -1,7 +1,10 @@
 "use strict"
 
 var flag = false
+var orbits = true
 
+var canvas = document.getElementById('gl-canvas');
+var context = canvas.getContext('2d');
 
 var collidableMeshList = [];
 
@@ -93,288 +96,6 @@ function BigBang(radius) {
 
     return mesh
 }
-                
-/* function to create Solar System in scale 1:1 */
-/*function CreateSystem_real() {
-    
-    // create the Solar System Group(hierarchical model)
-    var Solar_system = new THREE.Group()
-    Solar_system.name = "Solar System"
-    scene.add(Solar_system)
-    
-    // create the Sun
-    var SunGroup = new THREE.Group()
-    var sphere = new THREE.SphereGeometry(10,50,50)
-    var material = new THREE.MeshBasicMaterial({
-        // wireframe: true
-        map: loader.load('textures/Sun/Sun.jpg')
-    })
-    var Sun = new THREE.Mesh(sphere,material)
-    SunGroup.add(Sun)
-    Solar_system.add(SunGroup)
-    
-    // create the planets group
-    var planets = new THREE.Group()
-    Solar_system.add(planets)
-    
-    // create EarthGroup
-    // create Earth
-    var EarthGroup = new THREE.Group()
-    sphere = new THREE.SphereGeometry(3.5,30,30)
-    var material = new THREE.MeshBasicMaterial({
-        // wireframe: true
-        map: loader.load('textures/Earth/Earth.jpg')
-    })
-    var Earth = new THREE.Mesh(sphere,material)
-    Earth.position.x = 26.5
-    EarthGroup.add(Earth)
-    planets.add(EarthGroup)
-    
-    // create Moon
-    sphere = new THREE.SphereGeometry(0.5,30,30)
-    var material = new THREE.MeshDepthMaterial({
-        wireframe: true
-        // map: loader.load('textures/Earth/Moon.jpg')
-    })
-    var Moon = new THREE.Mesh(sphere,material)
-    Moon.position.x = 0
-    EarthGroup.add(Moon)
-    
-    // create MercuryGroup
-    // create Mercury
-    var MercuryGroup = new THREE.Group()
-    sphere = new THREE.SphereGeometry(1,50,50)
-    var material = new THREE.MeshBasicMaterial({
-        // wireframe: true
-        map: loader.load('textures/Mercury/Mercury.jpg')
-    })
-    var Mercury = new THREE.Mesh(sphere,material)
-    Mercury.position.x = 12
-    MercuryGroup.add(Mercury)
-    planets.add(MercuryGroup)
-    
-    // create VenusGroup
-    // create Venus
-    var VenusGroup = new THREE.Group()
-    sphere = new THREE.SphereGeometry(2,50,50)
-    var material = new THREE.MeshBasicMaterial({
-        // wireframe: true
-        map: loader.load('textures/Venus/Venus.jpg')
-    })
-    var Venus = new THREE.Mesh(sphere,material)
-    Venus.position.x = 16
-    VenusGroup.add(Venus)
-    planets.add(VenusGroup)
-    
-    // create MarsGroup
-    // create Mars
-    var MarsGroup = new THREE.Group()
-    sphere = new THREE.SphereGeometry(1.5,50,50)
-    var material = new THREE.MeshBasicMaterial({
-        // wireframe: true
-        map: loader.load('textures/Mars/Mars.jpg')
-    })
-    var Mars = new THREE.Mesh(sphere,material)
-    Mars.position.x = 20.5
-    MarsGroup.add(Mars)
-    planets.add(MarsGroup)
-    
-    // create Deimos
-    sphere = new THREE.SphereGeometry(0.5,30,30)
-    var material = new THREE.MeshDepthMaterial({
-        wireframe: true
-    })
-    var Deimos = new THREE.Mesh(sphere,material)
-    Deimos.position.x = 0
-    MarsGroup.add(Deimos)
-    
-    // create Phobos
-    sphere = new THREE.SphereGeometry(0.5,30,30)
-    var material = new THREE.MeshDepthMaterial({
-        wireframe: true
-    })
-    var Phobos = new THREE.Mesh(sphere,material)
-    Phobos.position.x = 0
-    MarsGroup.add(Phobos)
-    
-    // create JupiterGroup
-    // create Jupiter
-    var JupiterGroup = new THREE.Group()
-    sphere = new THREE.SphereGeometry(8,50,50)
-    var material = new THREE.MeshBasicMaterial({
-        // wireframe: true
-        map: loader.load('textures/Jupiter/jupiter2_4k.jpg')
-    })
-    var Jupiter = new THREE.Mesh(sphere,material)
-    Jupiter.position.x = 40
-    JupiterGroup.add(Jupiter)
-    planets.add(JupiterGroup)
-    
-    // create Io
-    sphere = new THREE.SphereGeometry(0.5,30,30)
-    var material = new THREE.MeshDepthMaterial({
-        wireframe: true
-    })
-    var Io = new THREE.Mesh(sphere,material)
-    Io.position.x = 0
-    JupiterGroup.add(Io)
-    
-    // create Europa
-    sphere = new THREE.SphereGeometry(0.5,30,30)
-    var material = new THREE.MeshDepthMaterial({
-        wireframe: true
-    })
-    var Europa = new THREE.Mesh(sphere,material)
-    Europa.position.x = 0
-    JupiterGroup.add(Europa)
-    
-    // create Ganymede
-    sphere = new THREE.SphereGeometry(0.5,30,30)
-    var material = new THREE.MeshDepthMaterial({
-        wireframe: true
-    })
-    var Ganymede = new THREE.Mesh(sphere,material)
-    Ganymede.position.x = 0
-    JupiterGroup.add(Ganymede)
-    
-    // create Callisto
-    sphere = new THREE.SphereGeometry(0.5,30,30)
-    var material = new THREE.MeshDepthMaterial({
-        wireframe: true
-    })
-    var Callisto = new THREE.Mesh(sphere,material)
-    Callisto.position.x = 0
-    JupiterGroup.add(Callisto)
-    
-    // create SaturnGroup
-    // create Saturn
-    var SaturnGroup = new THREE.Group()
-    sphere = new THREE.SphereGeometry(7,50,50)
-    material = new THREE.MeshBasicMaterial({
-        // wireframe: true
-        map: loader.load('textures/Saturn/saturnmap.jpg')
-    })
-    var Saturn = new THREE.Mesh(sphere,material)
-    Saturn.position.x = 62
-    SaturnGroup.add(Saturn)
-    planets.add(SaturnGroup)
-    
-    // create Saturn's Ring
-    var ring = new THREE.TorusGeometry(9, 0.5, 30, 200)
-    material = new THREE.MeshBasicMaterial({
-        // wireframe: true
-        map: loader.load('textures/Saturn/saturnringcolor.jpg')
-    })
-    var SaturnsRing = new THREE.Mesh(ring,material)
-    SaturnsRing.position.x = 62
-    SaturnsRing.rotation.x = 11.2
-    SaturnGroup.add(SaturnsRing)
-    
-    // create Saturn's Ring
-    var ring = new THREE.Shape()
-    ring.moveTo(9, 0)
-    ring.absarc( 0, 0, 9, 0, 2 * Math.PI, false );
-    
-    // create Enceladus
-    sphere = new THREE.SphereGeometry(0.5,30,30)
-    var material = new THREE.MeshDepthMaterial({
-        wireframe: true
-    })
-    var Enceladus = new THREE.Mesh(sphere,material)
-    Enceladus.position.x = 0
-    SaturnGroup.add(Enceladus)
-    
-    // create Titan
-    sphere = new THREE.SphereGeometry(0.5,30,30)
-    var material = new THREE.MeshDepthMaterial({
-        wireframe: true
-    })
-    var Titan = new THREE.Mesh(sphere,material)
-    Titan.position.x = 0
-    SaturnGroup.add(Titan)
-    
-    // create UranusGroup
-    // create Uranus
-    var UranusGroup = new THREE.Group()
-    sphere = new THREE.SphereGeometry(6,50,50)
-    var material = new THREE.MeshBasicMaterial({
-        // wireframe: true
-        map: loader.load('textures/Uranus/Uranus.jpg')
-    })
-    var Uranus = new THREE.Mesh(sphere,material)
-    Uranus.position.x = 85
-    UranusGroup.add(Uranus)
-    planets.add(UranusGroup)
-    
-    // create Uranus Ring
-    var ring = new THREE.RingGeometry(9, 10, 100)
-    material = new THREE.MeshBasicMaterial({
-        // wireframe: true
-        map: loader.load('textures/Uranus/uranusringcolour.jpg')
-    })
-    var UranusRing = new THREE.Mesh(ring,material)
-    UranusRing.position.x = 85
-    UranusRing.rotation.y = 11.77
-    UranusGroup.add(UranusRing)
-    
-    // create Oberon
-    sphere = new THREE.SphereGeometry(0.5,30,30)
-    var material = new THREE.MeshDepthMaterial({
-        wireframe: true
-    })
-    var Oberon = new THREE.Mesh(sphere,material)
-    Oberon.position.x = 0
-    UranusGroup.add(Oberon)
-    
-    // create Miranda
-    sphere = new THREE.SphereGeometry(0.5,30,30)
-    var material = new THREE.MeshDepthMaterial({
-        wireframe: true
-    })
-    var Miranda = new THREE.Mesh(sphere,material)
-    Miranda.position.x = 0
-    UranusGroup.add(Miranda)
-    
-    // create NeptuneGroup
-    // create Neptune
-    var NeptuneGroup = new THREE.Group()
-    sphere = new THREE.SphereGeometry(5,50,50)
-    var material = new THREE.MeshBasicMaterial({
-        // wireframe: true
-        map: loader.load('textures/Neptune/Neptune.jpg')
-    })
-    var Neptune = new THREE.Mesh(sphere,material)
-    Neptune.position.x = 97
-    NeptuneGroup.add(Neptune)
-    planets.add(NeptuneGroup)
-    
-    // create Tritone
-    sphere = new THREE.SphereGeometry(0.5,30,30)
-    var material = new THREE.MeshDepthMaterial({
-        wireframe: true
-    })
-    var Tritone = new THREE.Mesh(sphere,material)
-    Tritone.position.x = 0
-    SaturnGroup.add(Tritone)
-    
-    // create Talassa
-    sphere = new THREE.SphereGeometry(0.5,30,30)
-    var material = new THREE.MeshDepthMaterial({
-        wireframe: true
-    })
-    var Talassa = new THREE.Mesh(sphere,material)
-    Talassa.position.x = 0
-    SaturnGroup.add(Talassa)
-    
-    // create Ippocampo
-    sphere = new THREE.SphereGeometry(0.5,30,30)
-    var material = new THREE.MeshDepthMaterial({
-        wireframe: true
-    })
-    var Ippocampo = new THREE.Mesh(sphere,material)
-    Ippocampo.position.x = 0
-    SaturnGroup.add(Ippocampo)
-} */
 
 // too slow and so much lag
 // function Movements(event){
@@ -419,58 +140,83 @@ function render() {
     delta = clock.getDelta(); // seconds.
 	moveDistance = 500 * delta // 200 pixels per second
 	rotateAngle = Math.PI / 4 * delta   // pi/2 radians (90 degrees) per second
+    
+    
+    
+    
+    // change view modality
+    if(keyboard.pressed("P")) {
+        planetsfocus = true
+        bodyfocus = false
+        freefocus = false
+        orbits = true
+    }
+    if(keyboard.pressed("B")) {
+        planetsfocus = false
+        bodyfocus = true
+        freefocus = false
+        orbits = false
+    }
+    if(keyboard.pressed("L")) {
+        planetsfocus = false
+        bodyfocus = false
+        freefocus = true
+    }
 
-    // too slow and too much lag
-    // document.addEventListener("keydown", Movements, true)
+    if(orbits == true){
+        // make the planets real orbit
+        for(var i = 1; i < PlanetsData.length; i++){
 
-    // make the planets orbit
-    for(var i = 1; i < PlanetsData.length; i++){
+            // Advance the time in days
+            oldTimeD = currTimeD;
+            currTimeD = currTimeD + daysPerFrame;
+            var deltaTimeD = currTimeD - oldTimeD;
 
-        // Advance the time in days
+            var P = Planets[i]
+            var Data = PlanetsData[i]
+
+            // Calculate the planet orbital elements from the current time in days
+            var N =  (Data["N1"] + Data["N2"] * currTimeD) * Math.PI / 180;
+            var iData = (Data["i1"] + Data["i2"] * currTimeD) * Math.PI / 180;
+            var w =  (Data["w1"] + Data["w2"] * currTimeD) * Math.PI / 180;
+            var a = Data["a1"] + Data["a2"] * currTimeD;
+            var e = Data["e1"] + Data["e2"] * currTimeD;
+            var M = (Data["M1"] + Data["M2"] * currTimeD) * Math.PI / 180;
+            var E = M + e * Math.sin(M) * (1.0 + e * Math.cos(M));
+
+            var xv = a * (Math.cos(E) - e);
+            var yv = a * (Math.sqrt(1.0 - e * e) * Math.sin(E));
+            var v = Math.atan2(yv, xv);
+
+            // Calculate the distance (radius)
+            var r = Math.sqrt(xv * xv + yv * yv);
+
+            // From http://www.davidcolarusso.com/astro/
+            // Modified to compensate for the right handed coordinate system of OpenGL
+            var xh = r * (Math.cos(N) * Math.cos(v + w)
+                        - Math.sin(N) * Math.sin(v + w) * Math.cos(iData));
+            var zh = -r * (Math.sin(N) * Math.cos(v + w)
+                        + Math.cos(N) * Math.sin(v + w) * Math.cos(iData));
+            var yh = r * (Math.sin(w + v) * Math.sin(iData));
+
+            // Apply the position offset from the center of orbit to the bodies
+            var orbitcenter = Planets[Data["centerOfOrbit"]]
+            P.position.set(orbitcenter.position.x + xh * auScale, orbitcenter.position.y  + yh * auScale, orbitcenter.position.z  + zh * auScale);
+            
+            // Calculate and apply the appropriate axis tilt to the bodies
+            // and rotate them around the axis
+            var radians = Data["tilt"] * Math.PI / 180; // tilt in radians
+            P.rotation.order = 'ZXY';
+            P.rotation.x = 0;
+            P.rotation.y += (deltaTimeD / Data["period"]) * Math.PI /100;
+            P.rotation.z = radians;
+            P.updateMatrix();
+
+        }
+    } else {
         oldTimeD = currTimeD;
         currTimeD = currTimeD + daysPerFrame;
         var deltaTimeD = currTimeD - oldTimeD;
-
-        var P = Planets[i]
-        var Data = PlanetsData[i]
-
-        // Calculate the planet orbital elements from the current time in days
-        var N =  (Data["N1"] + Data["N2"] * currTimeD) * Math.PI / 180;
-        var iData = (Data["i1"] + Data["i2"] * currTimeD) * Math.PI / 180;
-        var w =  (Data["w1"] + Data["w2"] * currTimeD) * Math.PI / 180;
-        var a = Data["a1"] + Data["a2"] * currTimeD;
-        var e = Data["e1"] + Data["e2"] * currTimeD;
-        var M = (Data["M1"] + Data["M2"] * currTimeD) * Math.PI / 180;
-        var E = M + e * Math.sin(M) * (1.0 + e * Math.cos(M));
-
-        var xv = a * (Math.cos(E) - e);
-        var yv = a * (Math.sqrt(1.0 - e * e) * Math.sin(E));
-        var v = Math.atan2(yv, xv);
-
-        // Calculate the distance (radius)
-        var r = Math.sqrt(xv * xv + yv * yv);
-
-        // From http://www.davidcolarusso.com/astro/
-        // Modified to compensate for the right handed coordinate system of OpenGL
-        var xh = r * (Math.cos(N) * Math.cos(v + w)
-                    - Math.sin(N) * Math.sin(v + w) * Math.cos(iData));
-        var zh = -r * (Math.sin(N) * Math.cos(v + w)
-                    + Math.cos(N) * Math.sin(v + w) * Math.cos(iData));
-        var yh = r * (Math.sin(w + v) * Math.sin(iData));
-
-        // Apply the position offset from the center of orbit to the bodies
-        var orbitcenter = Planets[Data["centerOfOrbit"]]
-        P.position.set(orbitcenter.position.x + xh * auScale, orbitcenter.position.y  + yh * auScale, orbitcenter.position.z  + zh * auScale);
-        
-        // Calculate and apply the appropriate axis tilt to the bodies
-        // and rotate them around the axis
-        var radians = Data["tilt"] * Math.PI / 180; // tilt in radians
-        P.rotation.order = 'ZXY';
-        P.rotation.x = 0;
-        P.rotation.y += (deltaTimeD / Data["period"]) * Math.PI /100;
-        P.rotation.z = radians;
-        P.updateMatrix();
-
     }
 
     // rotate the Sun
@@ -482,26 +228,6 @@ function render() {
     Sun.rotation.y += (deltaTimeD / PlanetsData[SUN]["period"]) * Math.PI/10;
     Sun.rotation.z = PlanetsData[SUN]["tilt"] * Math.PI / 180; // tilt in radians
     Sun.updateMatrix();
-    
-    
-    
-    
-    // change view modality
-    if(keyboard.pressed("P")) {
-        planetsfocus = true
-        bodyfocus = false
-        freefocus = false
-    }
-    if(keyboard.pressed("B")) {
-        planetsfocus = false
-        bodyfocus = true
-        freefocus = false
-    }
-    if(keyboard.pressed("L")) {
-        planetsfocus = false
-        bodyfocus = false
-        freefocus = true
-    }
 
 
     if(bodyfocus == true) {
@@ -729,37 +455,3 @@ function render() {
 }
 
 render()
-
-/* TODO:
-FIRST PART
-    - create saturn's ring (make it 3D not 2D)
-    - make a visible-friendly distance from planets-sun
-    - make the possibility to switch to true distance planets-sun
-    - give textures to all objects (possible bump map and flares of light)
-    DONE - background texture
-    DONE - make the orbits of all objects
-    DONE - camera control even with mouse and keys (WASD + QEZC) 
-    - maybe add some comets
-
-SECOND PART
-    - object flying through the system:
-        - find a model
-        - textures
-        - animate it in a cool way
-        DONE - switch camera focus to it (make it possible to choose)
-        - other features to think :)
-*/
-
-/*  https://codepen.io/recursiveElk/pen/rXaoKY?editors=0010
-    <iframe src="https://clara.io/embed/08db1e83-5559-4c29-b7eb-7b96dd9cfdb2?renderer=webgl" width="800" height="600" allowfullscreen></iframe>
-maybe a good rocket model */
-
-/* https://github.com/mrdoob/three.js/blob/master/examples/js/controls/FirstPersonControls.js
-first person camera control */
-
-
-
-
-
-
-// C:\Users\sandr\Documents\GitHub\final-project-team-rocket-1

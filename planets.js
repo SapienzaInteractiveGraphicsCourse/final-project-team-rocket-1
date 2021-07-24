@@ -272,5 +272,170 @@ function createSun(radius) {
     return sun
 }
 
+/* function to create a static Solar System 
+function CreateSystem_static() {
+    
+    // create the Solar System Group(hierarchical model)
+    var Solar_system = new THREE.Group()
+    Solar_system.name = "Solar System"
+    scene.add(Solar_system)
+    
+    // create the Sun
+    var SunGroup = new THREE.Group()
+    var sphere = new THREE.SphereGeometry(10,50,50)
+    var material = new THREE.MeshBasicMaterial({
+        // wireframe: true
+        map: loader.load('textures/Sun/Sun.jpg')
+    })
+    var Sun = new THREE.Mesh(sphere,material)
+    SunGroup.add(Sun)
+    Solar_system.add(SunGroup)
+    
+    // create the planets group
+    var planets = new THREE.Group()
+    Solar_system.add(planets)
+    
+    // create EarthGroup
+    // create Earth
+    var EarthGroup = new THREE.Group()
+    sphere = new THREE.SphereGeometry(3.5,30,30)
+    var material = new THREE.MeshBasicMaterial({
+        // wireframe: true
+        map: loader.load('textures/Earth/Earth.jpg')
+    })
+    var Earth = new THREE.Mesh(sphere,material)
+    Earth.position.x = 26.5
+    EarthGroup.add(Earth)
+    planets.add(EarthGroup)
+    
+    // create Moon
+    sphere = new THREE.SphereGeometry(0.5,30,30)
+    var material = new THREE.MeshDepthMaterial({
+        wireframe: true
+        // map: loader.load('textures/Earth/Moon.jpg')
+    })
+    var Moon = new THREE.Mesh(sphere,material)
+    Moon.position.x = 0
+    EarthGroup.add(Moon)
+    
+    // create MercuryGroup
+    // create Mercury
+    var MercuryGroup = new THREE.Group()
+    sphere = new THREE.SphereGeometry(1,50,50)
+    var material = new THREE.MeshBasicMaterial({
+        // wireframe: true
+        map: loader.load('textures/Mercury/Mercury.jpg')
+    })
+    var Mercury = new THREE.Mesh(sphere,material)
+    Mercury.position.x = 12
+    MercuryGroup.add(Mercury)
+    planets.add(MercuryGroup)
+    
+    // create VenusGroup
+    // create Venus
+    var VenusGroup = new THREE.Group()
+    sphere = new THREE.SphereGeometry(2,50,50)
+    var material = new THREE.MeshBasicMaterial({
+        // wireframe: true
+        map: loader.load('textures/Venus/Venus.jpg')
+    })
+    var Venus = new THREE.Mesh(sphere,material)
+    Venus.position.x = 16
+    VenusGroup.add(Venus)
+    planets.add(VenusGroup)
+    
+    // create MarsGroup
+    // create Mars
+    var MarsGroup = new THREE.Group()
+    sphere = new THREE.SphereGeometry(1.5,50,50)
+    var material = new THREE.MeshBasicMaterial({
+        // wireframe: true
+        map: loader.load('textures/Mars/Mars.jpg')
+    })
+    var Mars = new THREE.Mesh(sphere,material)
+    Mars.position.x = 20.5
+    MarsGroup.add(Mars)
+    planets.add(MarsGroup)
+    
+    // create JupiterGroup
+    // create Jupiter
+    var JupiterGroup = new THREE.Group()
+    sphere = new THREE.SphereGeometry(8,50,50)
+    var material = new THREE.MeshBasicMaterial({
+        // wireframe: true
+        map: loader.load('textures/Jupiter/jupiter2_4k.jpg')
+    })
+    var Jupiter = new THREE.Mesh(sphere,material)
+    Jupiter.position.x = 40
+    JupiterGroup.add(Jupiter)
+    planets.add(JupiterGroup)
+    
+    // create SaturnGroup
+    // create Saturn
+    var SaturnGroup = new THREE.Group()
+    sphere = new THREE.SphereGeometry(7,50,50)
+    material = new THREE.MeshBasicMaterial({
+        // wireframe: true
+        map: loader.load('textures/Saturn/saturnmap.jpg')
+    })
+    var Saturn = new THREE.Mesh(sphere,material)
+    Saturn.position.x = 62
+    SaturnGroup.add(Saturn)
+    planets.add(SaturnGroup)
+    
+    // create Saturn's Ring
+    var ring = new THREE.TorusGeometry(9, 0.5, 30, 200)
+    material = new THREE.MeshBasicMaterial({
+        // wireframe: true
+        map: loader.load('textures/Saturn/saturnringcolor.jpg')
+    })
+    var SaturnsRing = new THREE.Mesh(ring,material)
+    SaturnsRing.position.x = 62
+    SaturnsRing.rotation.x = 11.2
+    SaturnGroup.add(SaturnsRing)
+    
+    // create Saturn's Ring
+    var ring = new THREE.Shape()
+    ring.moveTo(9, 0)
+    ring.absarc( 0, 0, 9, 0, 2 * Math.PI, false );
+    
+    // create UranusGroup
+    // create Uranus
+    var UranusGroup = new THREE.Group()
+    sphere = new THREE.SphereGeometry(6,50,50)
+    var material = new THREE.MeshBasicMaterial({
+        // wireframe: true
+        map: loader.load('textures/Uranus/Uranus.jpg')
+    })
+    var Uranus = new THREE.Mesh(sphere,material)
+    Uranus.position.x = 85
+    UranusGroup.add(Uranus)
+    planets.add(UranusGroup)
+    
+    // create Uranus Ring
+    var ring = new THREE.RingGeometry(9, 10, 100)
+    material = new THREE.MeshBasicMaterial({
+        // wireframe: true
+        map: loader.load('textures/Uranus/uranusringcolour.jpg')
+    })
+    var UranusRing = new THREE.Mesh(ring,material)
+    UranusRing.position.x = 85
+    UranusRing.rotation.y = 11.77
+    UranusGroup.add(UranusRing)
+    
+    // create NeptuneGroup
+    // create Neptune
+    var NeptuneGroup = new THREE.Group()
+    sphere = new THREE.SphereGeometry(5,50,50)
+    var material = new THREE.MeshBasicMaterial({
+        // wireframe: true
+        map: loader.load('textures/Neptune/Neptune.jpg')
+    })
+    var Neptune = new THREE.Mesh(sphere,material)
+    Neptune.position.x = 97
+    NeptuneGroup.add(Neptune)
+    planets.add(NeptuneGroup)
+}*/
+
 loadPlanetsData()
 CreateSystem()
