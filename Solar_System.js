@@ -86,7 +86,8 @@ document.body.appendChild( renderer.domElement )
 var light = new THREE.PointLight(0x111111, 1)
 light.position.set(0, 0, 0)
 scene.add(light)
-scene.add(new THREE.AmbientLight(0x111111))
+var ambient = new THREE.AmbientLight(0x111111)
+scene.add(ambient)
 
 /* --------------------------------------------------------------------------------------- */
 
@@ -474,7 +475,17 @@ function render() {
             camera.rotation.set(0,0,0)
         }
     }
-
+    
+    if(keyboard.pressed("K")){
+        light.intensity += 0.5
+        ambient.intensity += 0.5
+    }
+    if(keyboard.pressed("U")){
+        light.intensity -= 0.5
+        ambient.intensity -= 0.5
+    }
+    
+    console.log(light.intensity)
 }
 
 render()
