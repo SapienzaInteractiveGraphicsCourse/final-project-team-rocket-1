@@ -385,8 +385,7 @@ p6.add(lightp7);
 
 
 //LITTLE ALIEN ----------------------------------------------------------------------------------
-//---------------------the body of the alien is torso's son-------------------------------------
-//---------------------in this way they move together---------------------------------
+
 
 
 //setting texture
@@ -466,9 +465,7 @@ l6.scale.set(0.2, 2, 0.1);
 l6.rotation.y -= 0.32;
 l6.receiveShadow = true;
 body.add(l6);
-//OTHER OBJECTS---------------------------------------------------------------------------------------
-//--------------these can be used for animations----------------------------------------------------
-//------------------------------------------------------------------------------------------------
+
 
 
 //-------------------------------------------sword
@@ -544,7 +541,7 @@ const animate = function () {
            l4.rotation.x = -0.32;
            l5.rotation.y = -0.32;
            l6.rotation.y = -0.32;
-           //l6.rotation.z = 0;
+          
            l5.rotation.z = 0;
 
 
@@ -609,7 +606,7 @@ const animate = function () {
            l4.rotation.x = -0.32;
            l5.rotation.y = -0.32;
            l6.rotation.y = -0.32;
-          // l6.rotation.z = 0;
+          
            l5.rotation.z = 0;
 
 
@@ -968,7 +965,7 @@ if(attack){
         leftUpperArm.rotation.x += 0.01;
         rightUpperArm.rotation.x -= 0.01; 
         body.rotation.x += 0.001; 
-       // torso.rotation.z -= 0.005;
+      
         torso.translateY( -0.3 );
         body.translateY( 0.03 );
         platform.translateZ(0.002)
