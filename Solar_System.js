@@ -277,28 +277,28 @@ function render() {
         // using WASD to move  around
         if ( keyboard.pressed("W") ){
             //camera.translateZ( -moveDistance );
-            torso.translateX( -moveDistance);
+            torso.translateX( -moveDistance/8);
         }
         if ( keyboard.pressed("S") ){
             //camera.translateZ(  moveDistance );
-            torso.translateX(  moveDistance );
+            torso.translateX(  moveDistance/8 );
         }
         if ( keyboard.pressed("A") ){
             //camera.translateX( -moveDistance );
-            torso.translateZ( moveDistance );
+            torso.translateZ( moveDistance/8 );
         }
         if ( keyboard.pressed("D") ){
             //camera.translateX(  moveDistance );
-            torso.translateZ( -moveDistance );
+            torso.translateZ( -moveDistance/8 );
         }
         //go up and down with spacebar and V----------
         if ( keyboard.pressed(" ") ){
             //camera.translateX(  moveDistance );
-            torso.translateY( moveDistance );
+            torso.translateY( moveDistance/8 );
         }
         if ( keyboard.pressed("V") ){
             //camera.translateX(  moveDistance );
-            torso.translateY( -moveDistance );
+            torso.translateY( -moveDistance/8 );
         } 
 
 
@@ -398,9 +398,9 @@ function render() {
         if ( keyboard.pressed("D") )
             torso.rotateOnAxis( new THREE.Vector3(0,1,0), -rotateAngle);
         if ( keyboard.pressed("R") )
-            torso.rotateOnAxis( new THREE.Vector3(1,0,0), rotateAngle*2);
+            torso.rotateOnAxis( new THREE.Vector3(0,0,1), -rotateAngle);
         if ( keyboard.pressed("F") )
-            torso.rotateOnAxis( new THREE.Vector3(1,0,0), -rotateAngle);
+            torso.rotateOnAxis( new THREE.Vector3(0,0,1), rotateAngle);
 
         var relativeCameraOffset = new THREE.Vector3(20,5,1);
         var cameraOffset = relativeCameraOffset.applyMatrix4( torso.matrixWorld );

@@ -120,7 +120,7 @@ const materialBlack = new THREE.MeshBasicMaterial( { color: 0x000000 } );
 //torso
 const torso = new THREE.Mesh( geometry, torsoMat );
 torso.position.set(2000, 0, 0) 
-torso.scale.set(40, 70, 60);
+torso.scale.set(5, 8.75, 7.5);
 
 torso.receiveShadow = true;
 scene.add(torso);
@@ -863,7 +863,7 @@ if(attack){
         
         
         
-        torso.translateX( -moveDistance );
+        torso.translateX( -moveDistance/8 );
         platform.translateX( 0.1);
         
         leftUpperLeg.rotation.z += 0.02;
@@ -875,7 +875,7 @@ if(attack){
     if(attackCount >= 2.1 && attackCount < 4.1){
         leftShoulder.rotation.z += 0.09;
         
-        torso.translateX( moveDistance );
+        torso.translateX( moveDistance/8 );
         platform.translateX( -0.1 );
         
         leftUpperLeg.rotation.z -= 0.02;
