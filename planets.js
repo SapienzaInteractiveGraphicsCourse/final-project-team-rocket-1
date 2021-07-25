@@ -272,6 +272,8 @@ function createSun(radius) {
     return sun
 }
 
+
+
 /* function to create a static Solar System 
 function CreateSystem_static() {
     

@@ -35,6 +35,8 @@ var focus = 0
 var newplanet
 var commonSphere
 var Sun,Mercury,Venus,Earth,Mars,Jupiter,Saturn,Uranus,Neptune,Moon
+var SaturnsRing
+var UranusRing
 
 var keyboard = new THREEx.KeyboardState();
 var clock = new THREE.Clock();
@@ -87,6 +89,27 @@ scene.add(light)
 scene.add(new THREE.AmbientLight(0x111111))
 
 /* --------------------------------------------------------------------------------------- */
+
+function createRings(){
+    var ring = new THREE.RingGeometry(70, 100, 128)
+    var gas = new THREE.MeshBasicMaterial({
+        //wireframe: true
+        map: loader.load('textures/Saturn/saturnringcolor.jpg')
+    })
+    SaturnsRing = new THREE.Mesh(ring,gas)
+    SaturnsRing.rotation.x = 11.2
+    scene.add(SaturnsRing)
+
+    ring = new THREE.RingGeometry(40, 50, 100)
+    gas = new THREE.MeshBasicMaterial({
+        // wireframe: true
+        map: loader.load('textures/Uranus/uranusringcolour.jpg')
+    })
+    UranusRing = new THREE.Mesh(ring,gas)
+    UranusRing.rotation.y = 11.77
+    scene.add(UranusRing)
+}
+createRings()
 
 function BigBang(radius) {
 
@@ -226,8 +249,17 @@ function render() {
         Planets[9].position.x = 50 * Math.cos(theta[i]);
         Planets[9].position.y = 50 * Math.sin(theta[i]);
         Planets[9].position.z = 50 * Math.sin(theta[i]);
-        console.log(Planets[2].position)
     }
+    
+    SaturnsRing.position.x = Planets[6].position.x
+    SaturnsRing.position.y = Planets[6].position.y
+    SaturnsRing.position.z = Planets[6].position.z
+    SaturnsRing.rotation.z += 5*dtheta
+    
+    UranusRing.rotation.z += 5*dtheta
+    UranusRing.position.x = Planets[7].position.x
+    UranusRing.position.y = Planets[7].position.y
+    UranusRing.position.z = Planets[7].position.z
 
     // rotate the Sun
     //console.log(Sun)
