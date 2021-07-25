@@ -1,6 +1,30 @@
 //Astronaut and pet 
 
 
+//audio
+const audiolistener = new THREE.AudioListener();
+camera.add(audiolistener);
+const sound = new THREE.Audio(audiolistener);
+
+const audioLoader = new THREE.AudioLoader();
+audioLoader.load('sound/SolarSystemSoundtrack.ogg', function(buffer){
+    sound.setBuffer(buffer),
+    sound.setLoop(true);
+    sound.setVolume(0.5);
+    sound.play();
+
+});
+
+
+
+
+
+
+
+
+
+
+
 
 
 
