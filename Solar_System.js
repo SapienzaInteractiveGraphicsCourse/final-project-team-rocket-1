@@ -311,35 +311,16 @@ function render() {
         const geomS = Sun.geometry;
         geomS.computeBoundingBox();
         var SunBB = geomS.boundingBox;
-        //  OTHER PLANETS 
-        //for each planet, we clone the bounding box of the sun
-        var MercuryBB = SunBB.clone();
-        var VenusBB = SunBB.clone();
-        var EarthBB = SunBB.clone();
-        var MarsBB = SunBB.clone();
-        var JupiterBB = SunBB.clone();
-        var SaturnBB = SunBB.clone();
-        var UranusBB = SunBB.clone();
-        var NeptuneBB = SunBB.clone();
-        var MoonBB = SunBB.clone();
+        
 
         //then we apply the right matrix for each box
         SunBB.applyMatrix4(Sun.matrixWorld);
         torsoBB.applyMatrix4(torso.matrixWorld);
-        MercuryBB.applyMatrix4(Mercury.matrixWorld);
-        VenusBB.applyMatrix4(Venus.matrixWorld);
-        EarthBB.applyMatrix4(Earth.matrixWorld);
-        MarsBB.applyMatrix4(Mars.matrixWorld);
-        JupiterBB.applyMatrix4(Jupiter.matrixWorld);
-        SaturnBB.applyMatrix4(Saturn.matrixWorld);
-        UranusBB.applyMatrix4(Uranus.matrixWorld);
-        NeptuneBB.applyMatrix4(Neptune.matrixWorld);
-        MoonBB.applyMatrix4(Moon.matrixWorld);
-        //collision
+        
          SunCollision = torsoBB.intersectsBox(SunBB);
 
         
-        if (SunCollision){
+        if (SunCollision ){
             
             torso.position.set(4000, 0, 0);
            
