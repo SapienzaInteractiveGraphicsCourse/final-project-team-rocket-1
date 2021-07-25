@@ -47,7 +47,7 @@ var info = true;
 //textures--------------------------------------------------------------------------------
 var texloader = new THREE.TextureLoader();
 var textureArms = texloader.load('textures/mainCharacter/arms.png');
-var armsMat = new THREE.MeshBasicMaterial({
+var armsMat = new THREE.MeshPhongMaterial({
     map: textureArms,
    
 })
@@ -61,13 +61,14 @@ var platformMat = new THREE.MeshBasicMaterial({
     
    
 })
-var platformMat2 = new THREE.MeshBasicMaterial({
+var platformMat2 = new THREE.MeshPhongMaterial({
     map: texturePlatform2,
-   
+   bumpMap: texturePlatform2,
 })
 var textureTorso = texloader.load('textures/mainCharacter/body.png');
-var torsoMat = new THREE.MeshBasicMaterial({
+var torsoMat = new THREE.MeshPhongMaterial({
     map: textureTorso,
+    bumpMap: textureTorso,
 
    
 })
@@ -82,27 +83,28 @@ var swordMat = new THREE.MeshBasicMaterial({
    
 })
 var textureFace = texloader.load('textures/mainCharacter/face.jpg');
-var headMat = [ new THREE.MeshBasicMaterial({
+var headMat = [ new THREE.MeshPhongMaterial({
     map: textureArms,
-   
+    
 }),
-new THREE.MeshBasicMaterial({
+new THREE.MeshPhongMaterial({
     map: textureFace,
+    bumpMap: textureFace,
    
 }),
-new THREE.MeshBasicMaterial({
+new THREE.MeshPhongMaterial({
     map: textureArms,
    
 }),
-new THREE.MeshBasicMaterial({
+new THREE.MeshPhongMaterial({
     map: textureArms,
    
 }),
-new THREE.MeshBasicMaterial({
+new THREE.MeshPhongMaterial({
     map: textureArms,
    
 }),
-new THREE.MeshBasicMaterial({
+new THREE.MeshPhongMaterial({
     map: textureArms,
    
 })]
@@ -355,26 +357,26 @@ rlj.add(rightLowerLeg);
 
 //lights
 
-var lightp1 = new THREE.PointLight(0xffffff, 1, 10)
+var lightp1 = new THREE.PointLight(0xffffff, 1, 50)
 lightp1.position.set(0, 0, 0)
 
 p1.add(lightp1);
-var lightp2 = new THREE.PointLight(0xffffff, 1 , 10)
+var lightp2 = new THREE.PointLight(0xffffff, 1, 50 )
 lightp2.position.set(0, 0, 0)
 p2.add(lightp2);
-var lightp3 = new THREE.PointLight(0xffffff, 1, 10 )
+var lightp3 = new THREE.PointLight(0xffffff, 1, 50)
 lightp3.position.set(0, 0, 0)
 p3.add(lightp3);
-var lightp4 = new THREE.PointLight(0xffffff, 1 , 10)
+var lightp4 = new THREE.PointLight(0xffffff, 1, 50)
 lightp4.position.set(0, 0, 0)
 p4.add(lightp4);
-var lightp5 = new THREE.PointLight(0xffffff, 1 , 10)
+var lightp5 = new THREE.PointLight(0xffffff, 1, 50)
 lightp5.position.set(0, 0, 0)
 p5.add(lightp5);
-var lightp6 = new THREE.PointLight(0xffffff, 1, 10)
+var lightp6 = new THREE.PointLight(0xffffff, 1, 50)
 lightp6.position.set(0, 0, 0)
 p6.add(lightp6);
-var lightp7 = new THREE.PointLight(0xffffff, 1, 10)
+var lightp7 = new THREE.PointLight(0xffffff, 1, 50)
 lightp7.position.set(0, 0, 0)
 p6.add(lightp7);
 
@@ -395,6 +397,7 @@ var textureAlien2 = texloader.load('textures/mainCharacter/squidlegs.jpg')
 
 var alienMaterial = new THREE.MeshBasicMaterial({
     map: textureAlien,
+    bumpMap: textureAlien,
     emissive: 0xffffee,
     emissiveIntensity: 30,
     
@@ -402,6 +405,7 @@ var alienMaterial = new THREE.MeshBasicMaterial({
 })
 var alienMaterial2 = new THREE.MeshBasicMaterial({
     map: textureAlien2,
+    bumpMap: textureAlien2,
     emissive: 0xffffee,
     emissiveIntensity: 40,
     
@@ -965,7 +969,7 @@ if(attack){
         leftUpperArm.rotation.x += 0.01;
         rightUpperArm.rotation.x -= 0.01; 
         body.rotation.x += 0.001; 
-      
+       // torso.rotation.z -= 0.005;
         torso.translateY( -0.3 );
         body.translateY( 0.03 );
         platform.translateZ(0.002)
