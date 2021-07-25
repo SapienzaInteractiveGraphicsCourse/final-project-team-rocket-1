@@ -2,6 +2,7 @@
 
 var flag = false
 var orbits = true
+var orbitsC = false
 
 var canvas = document.getElementById('gl-canvas');
 var context = canvas.getContext('2d');
@@ -55,8 +56,10 @@ var currTimeD = startD;
 
 var auScale = 149597.870700; // AU in thousands of kilometers
 
-var theta = 0
-var dtheta = 2*Math.PI/1000
+var dtheta = 2*Math.PI/10000
+var theta = [1,3,5,7,11,13,17,19,23,29]
+var PlanetsR = [1000,1300,1600,1900,2100,2400,2700,3000,3300,80] // radius of simplified orbits
+var orbitals = []
 
 // set up the scene and camera
 const scene = new THREE.Scene()
@@ -98,41 +101,6 @@ function BigBang(radius) {
     return mesh
 }
 
-// too slow and so much lag
-// function Movements(event){
-
-//     var key = event.which
-//     delta = clock.getDelta(); // seconds.
-// 	moveDistance = 500 * delta; // 200 pixels per second
-// 	rotateAngle = Math.PI / 2 * delta;   // pi/2 radians (90 degrees) per second
-
-//     // using WASD to move the camera around
-//     if (key == 87)
-// 		camera.translateZ( -moveDistance )
-// 	if (key == 83)
-// 		camera.translateZ(  moveDistance )
-// 	if (key == 65)
-// 		camera.translateX( -moveDistance )
-// 	if (key == 68)
-// 		camera.translateX(  moveDistance )
-        
-//     // using QERF to rotate the camera around axis
-//     if (key == 81)
-//         camera.rotateOnAxis( new THREE.Vector3(0,1,0), rotateAngle);
-//     if (key == 69)
-//         camera.rotateOnAxis( new THREE.Vector3(0,1,0), -rotateAngle);
-//     if (key == 82)
-//         camera.rotateOnAxis( new THREE.Vector3(1,0,0), rotateAngle);
-//     if (key == 70)
-//         camera.rotateOnAxis( new THREE.Vector3(1,0,0), -rotateAngle);
-    
-//     if (key == 90) {
-//         camera.position.set(2000,0,0);
-//         camera.rotation.set(0,0,0);
-//         camera.lookAt(0, 0, 0)
-//     }
-// }
-
 function render() {
     
     requestAnimationFrame(render); 
@@ -165,6 +133,11 @@ function render() {
     }
 
     if(orbits == true){
+
+        for(var i = 0; i < PlanetsData.length-2; i++){
+            if(orbitsC == true) orbitals[i].visible = false
+        }
+
         // make the planets real orbit
         for(var i = 1; i < PlanetsData.length; i++){
 
@@ -215,8 +188,6 @@ function render() {
 
         }
     } else {
-
-        var PlanetsR = [1,5,10,20,30,40,50,60,70,80] // radius of simplified orbits
         
         // planets simplified position to make
         
@@ -226,18 +197,35 @@ function render() {
         currTimeD = currTimeD + daysPerFrame
         var deltaTimeD = currTimeD - oldTimeD
 
-        theta += dtheta
+        // create simplified orbits
+        if(!orbitsC){
+            for(var i = 1; i < PlanetsData.length-1; i++){
 
+                var orb = new THREE.RingGeometry(PlanetsR[i],PlanetsR[i]+0.000001, 128);
+                orb.rotateX(-Math.PI / 2);
+                var line = new THREE.LineBasicMaterial( { color: 'white' } );
+                var orbital = new THREE.Line( orb, line );
+                scene.add(orbital)
+                orbitals.push(orbital)
+            }
+            orbitsC = true
+        } else {
+            for(var i = 1; i < PlanetsData.length-2; i++){
+                orbitals[i].visible = true
+            }
+        }
+        
         for(var i = 1; i < PlanetsData.length-1; i++){
-            
-            Planets[i].position.x = PlanetsR[i] * Math.cos(theta);
-            Planets[i].position.y = PlanetsR[i] * Math.sin(theta);
-            Planets[i].position.z = Planets[0].position.z
+
+            theta[i] += dtheta
+            Planets[i].position.x = PlanetsR[i] * Math.cos(theta[i]);
+            Planets[i].position.z = PlanetsR[i] * Math.sin(theta[i]);
+            Planets[i].position.y = Planets[0].position.y
             Planets[i].rotation.y += 0.05
         }
-        Planets[9].position.x = 50 * Math.cos(theta);
-        Planets[9].position.y = 50 * Math.sin(theta);
-        Planets[9].position.z = 50 * Math.sin(theta);
+        Planets[9].position.x = 50 * Math.cos(theta[i]);
+        Planets[9].position.y = 50 * Math.sin(theta[i]);
+        Planets[9].position.z = 50 * Math.sin(theta[i]);
         console.log(Planets[2].position)
     }
 
