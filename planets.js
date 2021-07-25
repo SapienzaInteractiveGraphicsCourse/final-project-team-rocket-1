@@ -228,32 +228,6 @@ function createCloud(earthMesh) {
     earthMesh.add(mesh2)
 }
 
-/* function to create lights on Earth night side*/
-function createLights(earthMesh) {
-    
-    var material = new THREE.MeshPhongMaterial({
-        map: loader.load('textures/Earth/Earth_Lights.jpg'),
-        side: THREE.BackSide,
-        transparent: true,
-        opacity: 0.1,
-        shininess: 0
-    })
-    var mesh = new THREE.Mesh(commonSphere, material)
-    
-    var material2 = new THREE.MeshPhongMaterial({
-        map: loader.load('textures/Earth/Earth_Lights.jpg'),
-        side: THREE.FrontSide,
-        transparent: true,
-        opacity: 0.1
-    })
-    var mesh2 = new THREE.Mesh(commonSphere, material2)
-    
-    mesh.scale.set(1.01, 1.01, 1.01)
-    earthMesh.add(mesh)
-    mesh2.scale.set(1.01, 1.01, 1.01)
-    earthMesh.add(mesh2)
-}
-
 /* function to create the Sun */
 function createSun(radius) {
     
