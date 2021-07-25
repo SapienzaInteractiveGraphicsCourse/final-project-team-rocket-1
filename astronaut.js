@@ -143,7 +143,7 @@ const materialBlack = new THREE.MeshBasicMaterial( { color: 0x000000 } );
 
 //torso
 const torso = new THREE.Mesh( geometry, torsoMat );
-torso.position.set(2000, 0, 0) 
+torso.position.set(1800, 0, 0) 
 torso.scale.set(5, 8.75, 7.5);
 
 torso.receiveShadow = true;
@@ -561,7 +561,7 @@ const animate = function () {
         
     }
 
-    if ( keyboard.pressed("Z") ){
+    if ( keyboard.pressed("C") ){
         if(!walking){
         
         
