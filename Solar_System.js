@@ -246,9 +246,9 @@ function render() {
             Planets[i].position.y = Planets[0].position.y
             Planets[i].rotation.y += 0.05
         }
-        Planets[9].position.x = 50 * Math.cos(theta[i]);
-        Planets[9].position.y = 50 * Math.sin(theta[i]);
-        Planets[9].position.z = 50 * Math.sin(theta[i]);
+        Planets[9].position.x = Planets[3].position.x + 20 * Math.cos(4*theta[i]);
+        Planets[9].position.y = Planets[3].position.y ;
+        Planets[9].position.z = Planets[3].position.z ;
     }
     
     SaturnsRing.position.x = Planets[6].position.x
